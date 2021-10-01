@@ -1,0 +1,116 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+body{
+	font-family: 'Noto Sans TC', sans-serif;
+}	
+
+#index-banner{
+	background-image: url(../images/45094143_p8.jpg);
+}
+
+.card-content {
+  overflow: auto;
+}
+
+.fontSIZE:link,
+.fontSIZE:visited{
+	display:inline-block;
+	text-decoration:none;
+	text-align:center;
+	height:30px;
+	width:30px;
+	color:black;
+	background-color:white;
+	border:1px solid green;
+}
+.fontSIZE:hover,
+.fontSIZE:active{
+	color:white;
+	background-color:green;
+}
+
+.chip-two{
+	background-color: #a67a44;
+} 
+
+.iframe-container {
+  overflow: hidden;
+  padding-top: 56.25%;
+  position: relative;
+}
+
+.iframe-container iframe {
+   border: 0;
+   height: 100%;
+   left: 0;
+   position: absolute;
+   top: 0;
+   width: 100%;
+}
+
+#signbutton{
+	background-color:#e66552;
+}
+
+#evaluation{
+	color: #000000;
+}
+
+.iframe-container-4x3 {
+  padding-top: 75%;
+}
+
+.parallax-container {
+	height:25rem;
+}
+
+.icon-block {
+	padding: 0 15px;
+}
+
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+nav ul a,
+nav .brand-logo {
+  color: #444;
+}
+
+#index-title1{
+	color: #e66552;
+}
+
+#index-title2{
+	color: #e66552;
+}
+
+.typing{
+font-size: 1rem;
+padding-top: 6%;
+margin-bottom: 5%;
+font-weight: normal;
+letter-spacing: .3rem;
+-webkit-animation: type 2s steps(50, end) forwards;
+animation: type 2s steps(50, end) forwards;
+}
+.typing-item{
+text-align: center;
+color: black;
+width:100%;
+white-space:nowrap;
+overflow:hidden;
+}
+
+@-webkit-keyframes type{
+from { width: 0;}
+}
+@keyframes type{
+from { width: 0;}
+}
