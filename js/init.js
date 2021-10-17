@@ -160,7 +160,7 @@ const About = {
 					<div class="card col s12 m6">
 						<div class="card-content black-text">
 							<span class="card-title">校園特色</span>
-							<p>無。</p>
+							<p>可以展開</p>
 						</div>
 						  <ul class="collapsible" data-collapsible="accordion">
 						    <li>
