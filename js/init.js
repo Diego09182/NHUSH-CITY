@@ -164,18 +164,22 @@ const About = {
 						</div>
 						  <ul class="collapsible" data-collapsible="accordion">
 						    <li>
-						      <div class="collapsible-header">球隊</div>
-						      <div class="collapsible-body"><p>大家都很棒歐。</p></div>
+								<div class="collapsible-header">球隊</div>
+								<div class="collapsible-body">
+									<p>表現優異。</p>
+								</div>
 						    </li>
 						    <li>
-						      <div class="collapsible-header">社團</div>
-						      <div class="collapsible-body"><p>大家都很棒歐。</p></div>
+								<div class="collapsible-header">社團</div>
+								<div class="collapsible-body">
+									<p>多元且有趣。</p>
+								</div>
 						    </li>
 							<li>
-							  <div class="collapsible-header">學生自治</div>
-							  <div class="collapsible-body">
-								<p>可以選擇班聯會代表，每個代表都很認真爭取學生權益。</p>
-							  </div>
+								<div class="collapsible-header">學生自治</div>
+								<div class="collapsible-body">
+									<p>可以選擇班聯會代表，每個代表都很認真爭取學生權益。</p>
+								</div>
 							</li>
 						  </ul>
 					</div>
@@ -214,7 +218,7 @@ const About = {
 				  <div class="card brown">
 				    <div class="card-content white-text center-align">
 						<span class="card-title">優點</span>	
-						<p>校園社團多元</p>
+						<p>社團選擇多元</p>
 				    </div>
 				  </div>
 				</div>
