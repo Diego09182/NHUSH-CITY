@@ -214,7 +214,7 @@ const About = {
 				  <div class="card brown">
 				    <div class="card-content white-text center-align">
 						<span class="card-title">優點</span>	
-						<p>不知道</p>
+						<p>校園社團多元</p>
 				    </div>
 				  </div>
 				</div>
