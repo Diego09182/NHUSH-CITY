@@ -217,23 +217,8 @@ const About = {
 				<div class="col s12 m5">
 				  <div class="card brown">
 				    <div class="card-content white-text center-align">
-						<span class="card-title">優點</span>
-						<table class="bordered">
-							<thead>
-							<tbody>
-								<tr>
-									<th data-field="id">特色</th>					              
-								</tr>
-								</thead>
-								<tr>
-									<td>社團選擇多元</td>
-								</tr>
-								<tr>
-									<td>社團選擇多元</td>
-								</tr>
-							</tbody>
-						</table>
-						
+						<span class="card-title">優點</span>	
+						<p>社團選擇多元</p>
 				    </div>
 				  </div>
 				</div>
