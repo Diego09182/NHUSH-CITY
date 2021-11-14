@@ -54,9 +54,7 @@
 	
 	#classification
 	{
-		border:2px solid;
-		padding:0px 0px; 
-		border-radius:25px;
+		border:4px solid rgb(166, 122, 68);
 	}
 	
 </style>
@@ -123,12 +121,12 @@
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
-		<h1 class="center header-text" id="index-title1" >南湖高中</h1>
-      <div class="row center">
-        <h5 class="header col s12 light" id="index-title2">An exclusive community for Nanhu High School</h5>
-      </div>
-      <br>
-	  <br>
+	<h1 class="center header-text animate__animated animate__fadeIn" id="index-title1" >南湖高中</h1>
+	<div class="row center">
+		<h5 class="header col s12 light animate__animated animate__fadeIn" id="index-title2">An exclusive community for Nanhu High School</h5>
+	</div>
+    <br>
+	<br>
     </div>
   </div>
 	
@@ -277,7 +275,7 @@
 					echo"</div>";
 			echo"</div>";
 							  
-			//顯示記錄
+			//顯示貼文
 			$j = 1;
 			while ($row = mysqli_fetch_assoc($post_result) and $j <= $records_per_page)
 			{

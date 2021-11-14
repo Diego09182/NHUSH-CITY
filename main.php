@@ -30,13 +30,11 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>NHUSH-CITY</title>
-
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
   <link rel="stylesheet" type="text/css" href="css/hover.css"/>
-  <link href="https://gnehs.github.io/ChatUI/css/ChatUI.css" rel="stylesheet">
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 </head>
@@ -101,15 +99,25 @@
 	<div class="section no-pad-bot" id="index-banner">
 	  <div class="container">
 	    <br><br>
-			<h1 class="center header-text animate__animated animate__backInLeft" id="index-title1" >南湖高中</h1>
-	    <div class="row center">
-	      <h5 class="header col s12 light" id="index-title2">An exclusive community for Nanhu High School</h5>
-	    </div>
+		<h1 class="center header-text animate__animated animate__fadeIn" id="index-title1" >南湖高中</h1>
+		<div class="row center">
+			<h5 class="header col s12 light animate__animated animate__fadeIn" id="index-title2">An exclusive community for Nanhu High School</h5>
+		</div>
 	    <br><br>
 	  </div>
 	</div>
 	
 	<br>
+	
+	<div class="fixed-action-btn horizontal click-to-toggle">
+	    <a class="btn-floating btn-large brown">
+			<i class="material-icons">menu</i>
+	    </a>
+	    <ul>
+			<li><a href="modify.php" class="btn-floating btn waves-effect waves-light green"><i class="tooltipped" data-position="top" data-tooltip="修改資料"><i class="material-icons">perm_identity</i></i></a></li>
+			<li><a href="myhome.php" class="btn-floating btn waves-effect waves-light blue"><i class="tooltipped" data-position="top" data-tooltip="我的小屋"><i class="material-icons">view_quilt</i></i></a></li>
+		</ul>
+	</div>
 	
 	<div class="container">
 
@@ -217,6 +225,7 @@
 				</div>
 			</div>
 		</div>
+		
 	</div>
 	
 	<div class="center-align">
@@ -226,7 +235,6 @@
 	<div class="container">	
 	
 	<?php
-		
 		
 		//指定每頁顯示幾筆記錄
 		$records_per_page = 3;
@@ -285,14 +293,14 @@
 		echo"<ul class='pagination center'>";
 					
 		if ($page > 1)
-					echo "<li class='waves-effect'><a href='review.php?page=". ($page - 1) . "'><i class='material-icons'>chevron_left</i></a></li>";
+					echo "<li class='waves-effect'><a href='main.php?page=". ($page - 1) . "'><i class='material-icons'>chevron_left</i></a></li>";
 							
 		for ($i = 1; $i <= $total_pages; $i++)
 		{
 		  if ($i == $page)
-			echo "<li class='waves-effect'><a href='review.php?page=$i'>$i</a></li>";
+			echo "<li class='waves-effect'><a href='main.php?page=$i'>$i</a></li>";
 		  else
-			echo"<li class='waves-effect'><a href='review.php?page=$i'>$i</a></li>";
+			echo"<li class='waves-effect'><a href='main.php?page=$i'>$i</a></li>";
 		}
 						
 		if ($page < $total_pages)
@@ -352,7 +360,7 @@
 		</section>
 	</div>
 		
-		<br><br>
+	<br><br>
 	
 	<div class="container">
 		<section id="plan" class="tm-section-pad-top">
@@ -375,8 +383,7 @@
 		</section>
 	</div>
 	
-	<br>
-	<br>
+	<br><br>
 	
 </div>
 
@@ -411,17 +418,6 @@
 	<script src="js/materialize.js"></script>
 	<script src="js/init.js"></script>
 	<script type="text/javascript">
-		
-	new Vue({
-	    el: '#app',
-	    data: {
-			about:'We are students of Nanhu High School and we love Computer Science and Information Engineering.',
-			copyright:'This website is completed by our students and teachers.'
-	    },
-	    methods: {
-			
-	    }
-	})
 	
 	$(document).ready(function(){
 		$('.parallax').parallax();
@@ -439,8 +435,6 @@
 	});
 	
 	</script>
-	
-	
 	
   </body>
 </html>
