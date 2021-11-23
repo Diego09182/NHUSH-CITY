@@ -6,13 +6,13 @@
 	
 	if ($_COOKIE{"passed"} != "TRUE")
 	{
-			header("location:index.html");
-			exit();
+		header("location:index.html");
+		exit();
 	}
 	if ($_COOKIE{"id"} == "")
 	{
-			header("location:index.html");
-			exit();
+		header("location:index.html");
+		exit();
 	}
 	
 	require_once("dbtools.inc.php");
@@ -443,7 +443,6 @@
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
   <script type="text/javascript">
-	  
   	function check_data()
   	{
   	  if (document.myForm.subject.value.length == 0)

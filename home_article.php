@@ -1,19 +1,19 @@
 <?php
 	 
-	  //檢查 cookie 中的 passed 變數是否等於 TRUE
-	  $passed = $_COOKIE{"passed"};
-	  $id = $_COOKIE{"id"};
-	  
-	  if ($_COOKIE{"passed"} != "TRUE")
-	  {
-			header("location:index.html");
-			exit();
-	  }
-	  if ($_COOKIE{"id"} == "")
-	  {
-			header("location:index.html");
-			exit();
-	  }
+	//檢查 cookie 中的 passed 變數是否等於 TRUE
+	$passed = $_COOKIE{"passed"};
+	$id = $_COOKIE{"id"};
+	
+	if ($_COOKIE{"passed"} != "TRUE")
+	{
+				header("location:index.html");
+				exit();
+	}
+	if ($_COOKIE{"id"} == "")
+	{
+				header("location:index.html");
+				exit();
+	}
 	
 	require_once("dbtools.inc.php");
 		
@@ -105,12 +105,12 @@
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
-		<h1 class="center header-text" id="index-title1" >南湖高中</h1>
-      <div class="row center">
-        <h5 class="header col s12 light" id="index-title2">An exclusive community for Nanhu High School</h5>
-      </div>
-      <br>
-	  <br>
+	<h1 class="center header-text animate__animated animate__fadeIn" id="index-title1" >南湖高中</h1>
+	<div class="row center">
+		<h5 class="header col s12 light animate__animated animate__fadeIn" id="index-title2">An exclusive community for Nanhu High School</h5>
+	</div>
+    <br>
+	<br>
     </div>
   </div>
 	
@@ -119,16 +119,16 @@
 
   <div class="container">
 	  
-	  <div class="fixed-action-btn horizontal click-to-toggle">
-	    <a class="btn-floating btn-large brown">
-			<i class="material-icons">menu</i>
-	    </a>
-	    <ul>
-			<li><a class="btn-floating btn waves-effect waves-light green"><i class="tooltipped" data-position="top" data-tooltip="修改資料"><i class="material-icons">perm_identity</i></i></a></li>	
-			<li><a href="#modal1" class="btn-floating btn waves-effect waves-light blue"><i class="tooltipped" data-position="top" data-tooltip="發表文章"><i class="material-icons">mode_edit</i></i></a></li>
-			<li><a href="myhome.php" class="btn-floating btn waves-effect waves-light blue"><i class="tooltipped" data-position="top" data-tooltip="我的小屋"><i class="material-icons">view_quilt</i></i></a></li>
-		</ul>
-	  </div>
+		<div class="fixed-action-btn horizontal click-to-toggle">
+			<a class="btn-floating btn-large brown">
+				<i class="material-icons">menu</i>
+			</a>
+			<ul>
+				<li><a class="btn-floating btn waves-effect waves-light green"><i class="tooltipped" data-position="top" data-tooltip="修改資料"><i class="material-icons">perm_identity</i></i></a></li>	
+				<li><a href="#modal1" class="btn-floating btn waves-effect waves-light blue"><i class="tooltipped" data-position="top" data-tooltip="發表文章"><i class="material-icons">mode_edit</i></i></a></li>
+				<li><a href="myhome.php" class="btn-floating btn waves-effect waves-light blue"><i class="tooltipped" data-position="top" data-tooltip="我的小屋"><i class="material-icons">view_quilt</i></i></a></li>
+			</ul>
+		</div>
 			
 		<div id="modal1" class="modal">
 			<div class="modal-content">
