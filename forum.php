@@ -24,7 +24,7 @@
     $sql = "SELECT * FROM users Where id = $id";
     $member = execute_sql($link, "member", $sql);
     $row = mysqli_fetch_assoc($member);  
-	
+	$user_avatar = $row{"avatar"};
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +32,6 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>NHUSH-CITY</title>
-
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -46,7 +45,7 @@
 
 	#card
 	{
-		border:2px solid #8B4513;
+		border:5px solid #8B4513;
 		padding:0px 20px; 
 		background:#FFD1A4;
 		border-radius:25px;
@@ -54,7 +53,7 @@
 	
 	#classification
 	{
-		border:4px solid rgb(166, 122, 68);
+		border:5px solid rgb(166, 122, 68);
 	}
 	
 </style>
@@ -82,7 +81,11 @@
 						<div class="background">
 							<img src="images/head.jpg">
 						</div>
-						<a><img class="circle" src="images/dog.jpg"></a>
+						<?php
+							echo"<a>";
+								echo"<img class='circle' src='$user_avatar'>";
+							echo"</a>";
+						?>
 						<a><span class="name">十三</span></a>
 					</div>
 				</li>
@@ -93,6 +96,8 @@
 				<li><a class="waves-effect">學號:<?php echo $row{"student_ID"} ?></a></li>
 				<li><a class="waves-effect">行動電話:<?php echo $row{"cellphone"} ?></a></li>
 				<li><a class="" href="myhome.php">我的小屋</a></li>
+				<li><a class="" href="modify.php">修改資料</a></li>
+				<li><a class="" href="review.php">審查文章</a></li>
 				<li><a class="waves-effect"><i class="material-icons">info_outline</i>聯絡資訊</a></li>
 				<li><a class="waves-effect">ssss.gladmasy@gmail.com</a></li>
 					<li class="no-padding">
@@ -115,8 +120,6 @@
 			  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
 		</div>
 	</nav>
-  
-  
   
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
@@ -233,8 +236,6 @@
 		?>
 	</div>
 	
-	
-	
     <div class="row">
 		<h3 class="center-align">所有貼文</h3>
 		<?php
@@ -311,23 +312,21 @@
 			}
 							
 			//產生導覽列
-			echo"<ul class='pagination center'>";
-							
-			if ($page > 1)
-				echo "<li class='waves-effect'><a href='forum.php?page=". ($page - 1) . "'><i class='material-icons'>chevron_left</i></a></li>";
+			echo"<ul class='pagination center'>";						
+				if ($page > 1)
+					echo "<li class='waves-effect'><a href='forum.php?page=". ($page - 1) ."'><i class='material-icons'>chevron_left</i></a></li>";
+										
+				for ($i = 1; $i <= $total_pages; $i++)
+				{
+					if ($i == $page)
+						echo "<li class='waves-effect'><a href='forum.php?page=$i'>$i</a></li>";
+					else
+						echo"<li class='waves-effect'><a href='forum.php?page=$i'>$i</a></li>";
+				}
 									
-			for ($i = 1; $i <= $total_pages; $i++)
-			{
-				if ($i == $page)
-					echo "<li class='waves-effect'><a href='forum.php?page=$i'>$i</a></li>";
-				else
-					echo"<li class='waves-effect'><a href='forum.php?page=$i'>$i</a></li>";
-			}
-								
-			if ($page < $total_pages)
-				echo"<li class='waves-effect'><a href='forum.php?page=". ($page + 1) . "'><i class='material-icons'>chevron_right</i></a></li>";
-			echo "</p>";
-			
+				if ($page < $total_pages)
+					echo"<li class='waves-effect'><a href='forum.php?page=". ($page + 1) ."'><i class='material-icons'>chevron_right</i></a></li>";
+				echo "</p>";		
 			echo"</ul>";
 			
 		?> 		
@@ -391,26 +390,26 @@
 	
 	<br><br>
 
-<div class="container">
+	<div class="container">
 		<section id="plan" class="tm-section-pad-top">
-		      <div class="container">
-		        <div class="center-align">
+			  <div class="container">
+				<div class="center-align">
 					<h3 class="tm-text-primary tm-section-title mb-4">CONTACT</h3>
-		        </div>		
-		          <div class="col s6 m6">
-		            <div class="card horizontal small">
-		              <div class="card-stacked">
-		                <div class="card-content">
+				</div>		
+				  <div class="col s6 m6">
+					<div class="card horizontal small">
+					  <div class="card-stacked">
+						<div class="card-content">
 							<blockquote>
 							<h4><i class="material-icons medium">perm_phone_msg</i>02-26308889</p>
 							<p><i class="material-icons medium">contacts</i>臺北市內湖區康寧路3段220號</p>
 							</blockquote>
 						</div>
-		              </div>
-		            </div>
-		          </div>
+					  </div>
+					</div>
+				  </div>
 		</section>
-</div>
+	</div>
 
   <footer class="page-footer brown">
     <div class="container">

@@ -17,12 +17,6 @@
 	
 	require_once("dbtools.inc.php");
 	
-	session_start();
-	if(!isset($_SESSION['Count']))
-	{
-		$_SESSION['Count']=1;
-	}
-	
     //建立資料連接
     $link = create_connection();
 				
@@ -30,9 +24,7 @@
     $users_sql = "SELECT * FROM users Where id = $id";
     $users_result = execute_sql($link, "member", $users_sql);	
     $users_row = mysqli_fetch_assoc($users_result);
-	$avatar = $users_row{"avatar"};
-	
-	
+	$user_avatar = $users_row{"avatar"};
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +38,6 @@
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
   <link rel="stylesheet" type="text/css" href="css/hover.css"/>
-  <link href="https://gnehs.github.io/ChatUI/css/ChatUI.css" rel="stylesheet">
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 </head>
@@ -66,7 +57,7 @@
 <div id='app'>	
   <nav class="light lighten-1 brown" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="main.php" class="brand-logo center">NHUSH-CITY</a>
-		  <ul class="left hide-on-med-and-down">
+		<ul class="left hide-on-med-and-down">
 			<li><a class="waves-effect">名稱:<?php echo $users_row{"account"} ?></a></li>
 			<li><a class="waves-effect">姓名:<?php echo $users_row{"name"} ?></a></li>
 		  </ul>
@@ -79,49 +70,53 @@
 				}
 			?>
 		</ul>
-	  <ul id="slide-out" class="side-nav">
-	    <li>
-			<div class="userView">
-				<div class="background">
-					<img src="images/head.jpg">
+		<ul id="slide-out" class="side-nav">
+			<li>
+				<div class="userView">
+					<div class="background">
+						<img src="images/head.jpg">
+					</div>
+					<?php
+						echo"<a>";
+							echo"<img class='circle' src='$user_avatar'>";
+						echo"</a>";
+					?>
+					<a><span class="name">十三</span></a>
 				</div>
-				<a><img class="circle" src="images/dog.jpg"></a>
-				<a><span class="name">十三</span></a>
-			</div>
-	  	</li>
-		<blockquote>
-	    <li><a class="waves-effect"><i class="material-icons">info_outline</i>帳戶資訊</a></li>
-	    <li><a class="waves-effect">名稱:<?php echo $users_row{"account"} ?></a></li>
-		<li><a class="waves-effect">姓名:<?php echo $users_row{"name"} ?></a></li>
-		<li><a class="waves-effect">學號:<?php echo $users_row{"student_ID"} ?></a></li>
-		<li><a class="waves-effect">行動電話:<?php echo $users_row{"cellphone"} ?></a></li>
-		<li><a href="myhome.php">我的小屋</a></li>
-		<li><a href="modify.php">修改資料</a></li>
-		<li><a class="waves-effect"><i class="material-icons">info_outline</i>聯絡資訊</a></li>
-		<li><a class="waves-effect">ssss.gladmasy@gmail.com</a></li>
-	  		<li class="no-padding">
-	  		  <ul class="collapsible collapsible-accordion">
-				<li>
-				  <a class="collapsible-header">開發者資訊<i class="material-icons">arrow_drop_down</i></a>
-				  <div class="collapsible-body">
-					<ul>
-					  <li><a href="#">ssss</a></li>
-					  <li><a href="https://github.com/Diego09182"><img src="images/GitHub.png"></a></li>
-					</ul>
-				  </div>
-				</li>
-	  		  </ul>
-	  		</li>
-		</blockquote>
-	  </ul>
-	  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+			</li>
+			<blockquote>
+			<li><a class="waves-effect"><i class="material-icons">info_outline</i>帳戶資訊</a></li>
+			<li><a class="waves-effect">名稱:<?php echo $users_row{"account"} ?></a></li>
+			<li><a class="waves-effect">姓名:<?php echo $users_row{"name"} ?></a></li>
+			<li><a class="waves-effect">學號:<?php echo $users_row{"student_ID"} ?></a></li>
+			<li><a class="waves-effect">行動電話:<?php echo $users_row{"cellphone"} ?></a></li>
+			<li><a href="myhome.php">我的小屋</a></li>
+			<li><a href="modify.php">修改資料</a></li>
+			<li><a class="waves-effect"><i class="material-icons">info_outline</i>聯絡資訊</a></li>
+			<li><a class="waves-effect">ssss.gladmasy@gmail.com</a></li>
+			<li class="no-padding">
+				<ul class="collapsible collapsible-accordion">
+					<li>
+						<a class="collapsible-header">開發者資訊<i class="material-icons">arrow_drop_down</i></a>
+						<div class="collapsible-body">
+							<ul>
+							  <li><a href="#">ssss</a></li>
+							  <li><a href="https://github.com/Diego09182"><img src="images/GitHub.png"></a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</li>
+			</blockquote>
+		</ul>
+		<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
 
 	<div class="section no-pad-bot" id="index-banner">
 		<div class="container">
 			<br><br>
-			<h1 class="center header-text animate__animated animate__backInLeft" id="index-title1" >南湖高中</h1>
+			<h1 class="center header-text animate__animated animate__fadeIn" id="index-title1" >南湖高中</h1>
 			<div class="row center">
 				<h5 class="header col s12 light" id="index-title2">An exclusive community for Nanhu High School</h5>
 			</div>
@@ -187,7 +182,7 @@
 								<div class="input-field col s12 m12">
 									<i class="material-icons prefix">mode_edit</i>
 									<input name="avatar"  id="last_name" type="text" class="validate" length="200">
-									<label for="last_name">頭像連結(imgur)</label>
+									<label for="last_name">頭像連結</label>
 								</div>
 							</div>
 						  <br>
@@ -240,7 +235,7 @@
 							//將記錄指標移至本頁第一筆記錄的序號
 							mysqli_data_seek($result, $started_record);
 							 
-							//顯示記錄
+							//顯示日記
 							  $j = 1;
 							  while ($row = mysqli_fetch_assoc($result) and $j <= $records_per_page)
 							  {
@@ -304,7 +299,7 @@
 				<div class="card animate__animated animate__fadeIn">
 				<?php
 					echo"<div class='card-image'>";
-						 echo"<img src='$avatar'>";
+						 echo"<img src='$user_avatar'>";
 					echo"</div>";
 				?>
 					<div class="card-content">

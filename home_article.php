@@ -6,18 +6,16 @@
 	
 	if ($_COOKIE{"passed"} != "TRUE")
 	{
-				header("location:index.html");
-				exit();
+		header("location:index.html");
+		exit();
 	}
 	if ($_COOKIE{"id"} == "")
 	{
-				header("location:index.html");
-				exit();
+		header("location:index.html");
+		exit();
 	}
 	
 	require_once("dbtools.inc.php");
-		
-    $id = $_COOKIE{"id"};
 		
     //建立資料連接
     $link = create_connection();
