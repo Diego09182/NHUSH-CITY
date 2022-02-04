@@ -44,7 +44,6 @@
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
   <link rel="stylesheet" type="text/css" href="css/hover.css"/>
-  <link href="https://gnehs.github.io/ChatUI/css/ChatUI.css" rel="stylesheet">
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 </head>
@@ -94,7 +93,11 @@
 						<div class="background">
 							<img src="images/head.jpg">
 						</div>
-						<a><img class="circle" src="images/dog.jpg"></a>
+						<?php
+							echo"<a>";
+								echo"<img class='circle' src='$user_avatar'>";
+							echo"</a>";
+						?>
 						<a><span class="name">十三</span></a>
 					</div>
 				</li>
@@ -130,9 +133,9 @@
 	<div class="section no-pad-bot" id="index-banner">
 	  <div class="container">
 	    <br><br>
-			<h1 class="center header-text animate__animated animate__backInLeft" id="index-title1" >南湖高中</h1>
+			<h1 class="center header-text animate__animated animate__fadeIn" id="index-title1" >南湖高中</h1>
 	    <div class="row center">
-	      <h5 class="header col s12 light" id="index-title2">An exclusive community for Nanhu High School</h5>
+			<h5 class="header col s12 light animate__animated animate__fadeIn" id="index-title2">An exclusive community for Nanhu High School</h5>
 	    </div>
 	    <br><br>
 	  </div>
@@ -169,7 +172,7 @@
 						  
     //顯示原討論主題的內容
 	while ($row = mysqli_fetch_assoc($result))
-	{
+	{	
 		//執行SQL查詢身分
 		$user_id = $row['user_id'];
 		$member_sql = "SELECT * FROM users Where id = $user_id";
@@ -230,9 +233,10 @@
 										echo"刪除";
 									echo"</a>";
 								}
-								echo"<br>";
-							echo"<div class='left'>";
-								echo"<a href='#modal3' class='btn-floating halfway-fab waves-effect waves-light brown right'><i class='tooltipped' data-delay='50' data-tooltip='檢舉貼文'><i class='material-icons'>report_problem</i></i></a>";
+								echo"<br><br>";
+							echo"<div class=''>";
+								echo"<a href='post_collect.php' class='btn-floating halfway-fab waves-effect waves-light brown right'><i class='tooltipped' data-delay='50' data-tooltip='收藏貼文'><i class='material-icons'>class</i></i></a>";
+								echo"<a href='#modal3' class='btn-floating halfway-fab waves-effect waves-light brown left'><i class='tooltipped' data-delay='50' data-tooltip='檢舉貼文'><i class='material-icons'>report_problem</i></i></a>";
 							echo"</div>";
 						echo"</div>";
 				echo"</div>";
@@ -362,8 +366,11 @@
 							</div>
 							<br>
 							<div class="card-action center-align">
-								<a class="waves-effect waves-light btn brown" onClick="check_report()">發送</a>
-								<a class="waves-effect waves-light btn brown" onClick="reset_report()">重新輸入</a>
+								<a class="waves-effect waves-light btn brown" id="button" onClick="check_report()">發送</a>
+								<a class="waves-effect waves-light btn brown" id="button" onClick="reset_report()">重新輸入</a>
+								<br>
+								<br>
+								<a href="main.php">回首頁</a>
 							</div>
 						</form>
 					</div>
@@ -382,7 +389,7 @@
 								<input type="hidden" name="reply_id" value="<?php echo $id ?>">
 								<input type="hidden" name="avater" value="<?php echo $user_avatar ?>">
 								<span class="card-title">留言板</span>
-									<div class="input-field col m4 right">
+									<div class="input-field col s3 m3 right">
 										<i class="material-icons prefix">perm_identity</i>
 										<input class="validate" name="author" type="text" value="<?php echo $users_row{"account"} ?>" readonly>
 										<label for="icon_prefix2">帳號</label>
@@ -399,14 +406,14 @@
 									  <label for="last_name">內容</label>
 									</div>
 								</div>
-							  <br>
-							  <div class="card-action center-align">
-								<a class="waves-effect waves-light btn brown" onClick="check_data()">發送</a>
-								<a class="waves-effect waves-light btn brown" onClick="reset()">重新輸入</a>
 								<br>
-								<br>
-								<a href="main.php">回首頁</a>
-							  </div>
+								<div class="card-action center-align">
+									<a class="waves-effect waves-light btn brown" id="button" onClick="check_data()">發送</a>
+									<a class="waves-effect waves-light btn brown" id="button" onClick="reset()">重新輸入</a>
+									<br>
+									<br>
+									<a href="main.php">回首頁</a>
+								</div>
 							</form>
 						</div>
 					</div>
