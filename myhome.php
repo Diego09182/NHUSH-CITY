@@ -4,6 +4,7 @@
 	$passed = $_COOKIE{"passed"};
 	$id = $_COOKIE{"id"};
 	
+	//表示尚未登入網站，將使用者導向首頁 index.html
 	if ($_COOKIE{"passed"} != "TRUE")
 	{
 		header("location:index.html");
@@ -32,29 +33,16 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>NHUSH-CITY</title>
-
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
-  <link rel="stylesheet" type="text/css" href="css/hover.css"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
 </head>
 <body>
-
-<div class="container">
-	  <div class="fixed-action-btn horizontal click-to-toggle">
-		<a class="btn-floating btn-large brown">
-			<i class="material-icons">menu</i>
-		</a>
-		<ul>
-			<li><a @click="reset()" href="#modal2" class="btn-floating btn waves-effect waves-light blue"><i class="tooltipped" data-position="top" data-tooltip="註冊"><i class="material-icons">assignment</i></i></a></li>
-		</ul>
-	  </div>
-</div>
-
-<div id='app'>	
+<div id="app">
   <nav class="light lighten-1 brown" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="main.php" class="brand-logo center">NHUSH-CITY</a>
 		<ul class="left hide-on-med-and-down">
@@ -63,6 +51,7 @@
 		  </ul>
 		  <ul class="right hide-on-med-and-down">
 			<li><a class="waves-effect" href="modify.php">修改資料</a></li>
+			<li><a class="waves-effect" href="myhome_collect.php">收藏庫</a></li>
 			<?php
 				if ($id == 45)
 				{
@@ -113,16 +102,7 @@
     </div>
   </nav>
 
-	<div class="section no-pad-bot" id="index-banner">
-		<div class="container">
-			<br><br>
-			<h1 class="center header-text animate__animated animate__fadeIn" id="index-title1" >南湖高中</h1>
-			<div class="row center">
-				<h5 class="header col s12 light" id="index-title2">An exclusive community for Nanhu High School</h5>
-			</div>
-			<br><br>
-		</div>
-	</div>
+	<banner></banner>
 	
 	<div class="fixed-action-btn horizontal click-to-toggle">
 	    <a class="btn-floating btn-large brown">
@@ -157,8 +137,8 @@
 							</div>
 						  <br>
 						  <div class="card-action center-align">
-							<a class="waves-effect waves-light btn" onClick="check_data()">發送</a>
-							<a class="waves-effect waves-light btn" onClick="reset()">重新輸入</a>
+							<a class="waves-effect waves-light btn brown" onClick="check_data()">發送</a>
+							<a class="waves-effect waves-light btn brown" onClick="reset()">重新輸入</a>
 							<br>
 							<a href="main.php">回首頁</a>
 						  </div>
@@ -203,11 +183,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col s12 m9">
-				<div class="card-panel teal brown">
-					
+				<div class="card-panel teal brown">			
 					<h4 class="white-text center">我的日誌</h4>
-					<hr>
-						
+					<hr>			
 						<?php
 							
 							//指定每頁顯示幾筆記錄
@@ -228,10 +206,10 @@
 																	
 							//計算總頁數
 							$total_pages = ceil($total_records / $records_per_page);
-																	
+							
 							//計算本頁第一筆記錄的序號
 							$started_record = $records_per_page * ($page - 1);
-																	
+											
 							//將記錄指標移至本頁第一筆記錄的序號
 							mysqli_data_seek($result, $started_record);
 							 
@@ -248,10 +226,10 @@
 												echo"日誌主題:".$row["subject"];
 											echo"</h5>";
 											echo"<hr>"; 
-											echo"<p class='truncate'>";
+											echo"<p class='truncate right'>";
 												echo"發布時間:".$row["date"];
 											echo"</p>";
-											echo"<div class='right'>";
+											echo"<div class='left'>";
 												echo"作者:".$row["author"];
 											echo"</div>";
 											echo"<br>";
@@ -290,7 +268,7 @@
 							
 							//取得文章數
 							$total_posts = mysqli_num_rows($result);
-										  
+							
 						?>
 				</div>
 			</div>
@@ -312,29 +290,25 @@
 						<p>會顯示於發文者區塊</p>
 					</div>
 				</div>
-			</div>
-			
+			</div>		
 			<div class="col s12 m3">
 				<div class="card-panel">
 					<h5 class="card-title grey-text text-darken-4 center">自我介紹</h5>
 					<h5><?php echo $users_row{"comment"} ?></h5>
 				</div>
-			</div>
-			
+			</div>			
 			<div class="col s12 m3">
 				<div class="card-panel">
 					<h5 class="card-title grey-text text-darken-4 center">興趣</h5>
 					<h5><?php echo $users_row{"interest"} ?></h5>
 				</div>
-			</div>
-			
+			</div>		
 			<div class="col s12 m3">
 				<div class="card-panel">
 					<h5 class="card-title grey-text text-darken-4 center">社團</h5>
 					<h5><?php echo $users_row{"club"} ?></h5>
 				</div>
-			</div>
-				
+			</div>			
 			<div class="col s12 m3">
 				<div class="card-panel">
 					<h5 class="card-title grey-text text-darken-4 center">站內紀錄</h5>
@@ -346,8 +320,7 @@
 					<h5>文章數量:<?php echo $total_posts?></h5>
 					<br>
 				</div>
-			</div>
-							
+			</div>						
 		</div>	
 	</div>
 	
@@ -361,14 +334,13 @@
 	?>
 	
 	<div class="container">
-		<section id="plan" class="tm-section-pad-top">
-			  <div class="container">
-				<div class="center-align">
-					<h3 class="tm-text-primary tm-section-title mb-4">公佈欄</h3>
-				</div>
-				  <div class="col s6 m6">
-					<div class="card horizontal small">
-					  <div class="card-stacked">
+		<div class="container">
+			<div class="center-align">
+				<h3 class="tm-text-primary tm-section-title mb-4">公佈欄</h3>
+			</div>
+			<div class="col s6 m6">
+				<div class="card horizontal small">
+					<div class="card-stacked">
 						<div class="card-content">
 							<h4>
 								<blockquote>
@@ -376,144 +348,97 @@
 								</blockquote>
 							</h4>
 						</div>
-					  </div>
 					</div>
-				  </div>
-		</section>
-	</div>
-		
-	<br>
-	
-	<div class="container">
-		<section id="plan" class="tm-section-pad-top">
-		      <div class="container">
-		        <div class="center-align">
-					<h3 class="tm-text-primary tm-section-title mb-4">CONTACT</h3>
-		        </div>		
-		        <div class="col s6 m6">
-					<div class="card horizontal small">
-						<div class="card-stacked">
-							<div class="card-content">
-								<h4>
-								<blockquote><i class="material-icons medium">perm_phone_msg</i>02-26308889</p>
-								<i class="material-icons medium">contacts</i>臺北市內湖區康寧路3段220號</p>
-								</blockquote>
-							</div>
-						</div>
-		            </div>
-		        </div>
-		</section>
-	</div>
+				</div>
+			</div>
+		</div>
+	</div>	
 	
 	<br>
-	<br>
+	
+	<contact></contact>
+	
+	<br><br>
+	
 
-</div>
-
-  <footer class="page-footer brown">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">南湖資訊社</h5>
-          <p class="grey-text text-lighten-4">We are students of Nanhu High School and we love Computer Science and Information Engineering.</p>
-		  <p class="grey-text text-lighten-4">This website is completed by our students and teachers.</p>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">相關連結</h5>
-          <ul>
-            <li><a class="white-text" href="http://www.nhush.tp.edu.tw/default_page.asp">南湖高中官網</a></li>
-            <li><a class="white-text" href="https://e-portfolio.cooc.tp.edu.tw/Portal.do">臺北市學習歷程檔案系統</a></li>
-            <li><a class="white-text" href="https://sschool.tp.edu.tw/Login.action?schNo=403303">台北市高中第二代校務行政系統</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-		<p class="center-align">Made by <a class="orange-text text-lighten-3" href="http://www.materializecss.cn">Materialize</a></p>
-      </div>
-    </div>
-  </footer>
+	<footers></footers>
   
-
-	
-	
-  <!--  Scripts-->
-		<script src="https://unpkg.com/vue/dist/vue.js"></script>
-		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="js/materialize.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v6.0"></script>
-		<script src="js/init.js"></script>  
-		<script type="text/javascript">
+</div>	
+<!--  Scripts-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/materialize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v6.0"></script>
+<script src="js/init.js"></script>
+<script type="text/javascript">
 			
-			function check_data()
-			{		
-				if (document.myForm.subject.value.length == 0)
-				  {
-					alert("主題一定要填寫");
-					return false;
-				  }
-				if (document.myForm.subject.value.length > 15)
-				  {
-					alert("主題不可以超過15個字元");
-					return false;
-				  }
-				if (document.myForm.content.value.length == 0)
-				  {
-					alert("內容一定要填寫");
-					return false;
-				  }
-				if (document.myForm.content.value.length > 80)
-				  {
-					alert("內容不可以超過80個字元");
-					return false;
-				  }
-				
-				myForm.submit();
-			}
-			
-			function check_avatar()
-			{		
-				if (document.avatarForm.avatar.value.length == 0)
-				{
-					alert("頭像連結一定要填寫");
-					return false;
-				}
-				if (document.avatarForm.avatar.value.length > 200)
-				{
-					alert("頭像連結不可以超過200個字元");
-					return false;
-				}
-			
-				avatarForm.submit();
-			}
-			
-			function reset(){
-				document.myForm.subject.value = ""
-				document.myForm.content.value = ""
-				document.avatarForm.avatar.value = ""
-			}
-			
-			$(document).ready(function(){
-				$('.parallax').parallax();
-				$('.button-collapse').sideNav();
-				$('.carousel.carousel-slider').carousel({full_width: true});
-				$('.modal').modal();
-				$('.materialboxed').materialbox();
-				$('.tooltipped').tooltip({delay: 50});
-				$('.chips').material_chip();
-				$('.collapsible').collapsible();
-				$('.carousel').carousel();
-				$('.slider').slider({full_width: true});
-				$('select').material_select();
-				$(".button-collapse").sideNav();
-			});
-			
-		</script>
+	function check_data()
+	{		
+		if (document.myForm.subject.value.length == 0)
+		  {
+			alert("主題一定要填寫");
+			return false;
+		  }
+		if (document.myForm.subject.value.length > 15)
+		  {
+			alert("主題不可以超過15個字元");
+			return false;
+		  }
+		if (document.myForm.content.value.length == 0)
+		  {
+			alert("內容一定要填寫");
+			return false;
+		  }
+		if (document.myForm.content.value.length > 80)
+		  {
+			alert("內容不可以超過80個字元");
+			return false;
+		  }
 		
-  </body>
+		myForm.submit();
+	}
+	
+	function check_avatar()
+	{		
+		if (document.avatarForm.avatar.value.length == 0)
+		{
+			alert("頭像連結一定要填寫");
+			return false;
+		}
+		if (document.avatarForm.avatar.value.length > 200)
+		{
+			alert("頭像連結不可以超過200個字元");
+			return false;
+		}
+	
+		avatarForm.submit();
+	}
+	
+	function reset(){
+		document.myForm.subject.value = ""
+		document.myForm.content.value = ""
+		document.avatarForm.avatar.value = ""
+	}
+	
+	$(document).ready(function(){
+		$('.parallax').parallax();
+		$('.button-collapse').sideNav();
+		$('.carousel.carousel-slider').carousel({full_width: true});
+		$('.modal').modal();
+		$('.materialboxed').materialbox();
+		$('.tooltipped').tooltip({delay: 50});
+		$('.chips').material_chip();
+		$('.collapsible').collapsible();
+		$('.carousel').carousel();
+		$('.slider').slider({full_width: true});
+		$('select').material_select();
+		$(".button-collapse").sideNav();
+	});
+			
+</script>	
+</body>
 </html>

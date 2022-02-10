@@ -31,15 +31,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>NHUSH-CITY</title>
-
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
-  <link rel="stylesheet" type="text/css" href="css/hover.css"/>
-  <link href="https://gnehs.github.io/ChatUI/css/ChatUI.css" rel="stylesheet">
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
 </head>
   <body>
 	<nav class="light lighten-1 brown" role="navigation">
@@ -99,9 +97,9 @@
 	<div class="section no-pad-bot" id="index-banner">
 	  <div class="container">
 	    <br><br>
-			<h1 class="center header-text animate__animated animate__backInLeft" id="index-title1" >南湖高中</h1>
+			<h1 class="center header-text animate__animated animate__fadeIn" id="index-title1" >南湖高中</h1>
 	    <div class="row center">
-	      <h5 class="header col s12 light" id="index-title2">An exclusive community for Nanhu High School</h5>
+			<h5 class="header col s12 light animate__animated animate__fadeIn" id="index-title2">An exclusive community for Nanhu High School</h5>
 	    </div>
 	    <br><br>
 	  </div>

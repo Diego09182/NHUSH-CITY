@@ -1,19 +1,20 @@
 <?php
-  //檢查 cookie 中的 passed 變數是否等於 TRUE 
-  $passed = $_COOKIE{"passed"};
-  $id = $_COOKIE{"id"};
-  
-  //表示尚未登入網站，將使用者導向首頁 index.html
-  if ($passed != "TRUE")
-  {
-    header("location:index.html");
-    exit();
-  }
-  if ($id == "")
-  {
-    header("location:index.html");
-    exit();
-  }
+
+	//檢查 cookie 中的 passed 變數是否等於 TRUE
+	$passed = $_COOKIE{"passed"};
+	$id = $_COOKIE{"id"};
+	
+	//表示尚未登入網站，將使用者導向首頁 index.html
+	if ($passed != "TRUE")
+	{
+		header("location:index.html");
+		exit();
+	}
+	if ($id == "")
+	{
+		header("location:index.html");
+		exit();
+	}
 	
     require_once("dbtools.inc.php");
 		
@@ -32,30 +33,16 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>NHUSH-CITY</title>
-
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
-  <link rel="stylesheet" type="text/css" href="css/hover.css"/>
-  <link href="https://gnehs.github.io/ChatUI/css/ChatUI.css" rel="stylesheet">
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
 </head>
 <body>
-
-<div class="container">
-	  <div class="fixed-action-btn horizontal click-to-toggle">
-		<a class="btn-floating btn-large brown">
-			<i class="material-icons">menu</i>
-		</a>
-		<ul>
-			<li><a @click="reset()" href="#modal2" class="btn-floating btn waves-effect waves-light blue"><i class="tooltipped" data-position="top" data-tooltip="註冊"><i class="material-icons">assignment</i></i></a></li>
-		</ul>
-	  </div>
-</div>
-
-<div id='app'>	
+<div id="app">	
   <nav class="light lighten-1 brown" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="main.php" class="brand-logo center">NHUSH-CITY</a>
 		  <ul class="left hide-on-med-and-down">
@@ -113,7 +100,7 @@
 	<div class="section no-pad-bot" id="index-banner">
 		<div class="container">
 			<br><br>
-			<h1 class="center header-text animate__animated animate__backInLeft" id="index-title1" >南湖高中</h1>
+			<h1 class="center header-text animate__animated animate__fadeIn" id="index-title1" >南湖高中</h1>
 			<div class="row center">
 				<h5 class="header col s12 light" id="index-title2">An exclusive community for Nanhu High School</h5>
 			</div>
@@ -221,40 +208,22 @@
 		</div>
 	</div>
 	
-	<footer class="page-footer brown">
-	  <div class="container">
-	    <div class="row">
-	      <div class="col l6 s12">
-	        <h5 class="white-text">南湖資訊社</h5>
-	        <p class="grey-text text-lighten-4">We are students of Nanhu High School and we love Computer Science and Information Engineering.</p>
-			  <p class="grey-text text-lighten-4">This website is completed by our students and teachers.</p>
-	      </div>
-	      <div class="col l3 s12">
-	        <h5 class="white-text">相關連結</h5>
-	        <ul>
-	          <li><a class="white-text" href="http://www.nhush.tp.edu.tw/default_page.asp">南湖高中官網</a></li>
-	          <li><a class="white-text" href="https://e-portfolio.cooc.tp.edu.tw/Portal.do">臺北市學習歷程檔案系統</a></li>
-	          <li><a class="white-text" href="https://sschool.tp.edu.tw/Login.action?schNo=403303">台北市高中第二代校務行政系統</a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="footer-copyright">
-	    <div class="container">
-			<p class="center-align">Made by <a class="orange-text text-lighten-3" href="http://www.materializecss.cn">Materialize</a></p>
-	    </div>
-	  </div>
-	</footer>
-	
-  </body>
+	<footers></footers>
+</div>	
+</body>
 </html>
-
-	<script src="https://unpkg.com/vue/dist/vue.js"></script>
-	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script src="js/materialize.js"></script>
-    <script type="text/javascript">
+<!--  Scripts-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/materialize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v6.0"></script>
+<script src="js/init.js"></script>
+<script type="text/javascript">
+	
       function check_data()
       {
         if (document.myForm.password.value.length == 0)
@@ -353,4 +322,4 @@
 		document.myForm.re_password.value = ""
 		document.myForm.name.value = ""
 	  }
-    </script>
+</script>

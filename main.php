@@ -3,6 +3,7 @@
 	$passed = $_COOKIE["passed"];
 	$id = $_COOKIE{"id"};
 	
+	//表示尚未登入網站，將使用者導向首頁 index.html
 	if ($_COOKIE{"passed"} != "TRUE")
 	{
 		header("location:index.html");
@@ -34,12 +35,11 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
-  <link rel="stylesheet" type="text/css" href="css/hover.css"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
 </head>
 <body>
-
 <div id="app">	
 	<nav class="light lighten-1 brown" role="navigation">
 	  <div class="nav-wrapper container"><a id="logo-container" href="main.php" class="brand-logo center">NHUSH-CITY</a>
@@ -100,7 +100,15 @@
 	
 	<br>
 	
-	<tool></tool>
+	<div class="fixed-action-btn horizontal click-to-toggle">
+		<a class="btn-floating btn-large brown">
+			<i class="material-icons">menu</i>
+		</a>
+		<ul>
+			<li><a href="modify.php" class="btn-floating btn waves-effect waves-light green"><i class="tooltipped" data-position="top" data-tooltip="修改資料"><i class="material-icons">perm_identity</i></i></a></li>
+			<li><a href="myhome.php" class="btn-floating btn waves-effect waves-light blue"><i class="tooltipped" data-position="top" data-tooltip="我的小屋"><i class="material-icons">view_quilt</i></i></a></li>
+		</ul>
+	</div>
 	
 	<div class="container">
 		<features></features>	
@@ -229,11 +237,10 @@
 	<br><br>
 	
 	<footers></footers>	
-	
 </div>
 <!--  Scripts-->
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
@@ -453,12 +460,6 @@
 	
 	new Vue({
 	    el: '#app',
-	    data: {
-	        fontsizesetting: 30,
-	        fontStyle: {
-	            'font-size': '30px'
-	        }
-	    }
 	})
 	
 	$(document).ready(function(){
@@ -477,5 +478,5 @@
 	});
 	
 </script>
-  </body>
+</body>
 </html>

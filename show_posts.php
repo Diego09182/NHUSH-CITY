@@ -38,14 +38,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>NHUSH-CITY</title>
-
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
-  <link rel="stylesheet" type="text/css" href="css/hover.css"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
 </head>
 	
   <style type="text/css">
@@ -70,7 +69,8 @@
   }
   
   </style>
-  <body>
+<body>
+<div id="app">  	 
 	<nav class="light lighten-1 brown" role="navigation">
 		<div class="nav-wrapper container"><a id="logo-container" href="forum.php" class="brand-logo center">NHUSH-CITY</a>
 		  <ul class="left hide-on-med-and-down">
@@ -152,7 +152,7 @@
 		</ul>
 	</div>
 	
-	<div class="container center" id="app">
+	<div class="container center">
 	 
 	<br>
 	
@@ -420,145 +420,148 @@
 				</div>
 		</div>
 	</div>
-</div>
-
-	<br>
-	<br>
 	
-	<footer class="page-footer brown">
-	  <div class="container">
-	    <div class="row">
-	      <div class="col l6 s12">
-	        <h5 class="white-text">南湖資訊社</h5>
-	        <p class="grey-text text-lighten-4">We are students of Nanhu High School and we love Computer Science and Information Engineering.</p>
-			  <p class="grey-text text-lighten-4">This website is completed by our students and teachers.</p>
-	      </div>
-	      <div class="col l3 s12">
-	        <h5 class="white-text">相關連結</h5>
-	        <ul>
-	          <li><a class="white-text" href="http://www.nhush.tp.edu.tw/default_page.asp">南湖高中官網</a></li>
-	          <li><a class="white-text" href="https://e-portfolio.cooc.tp.edu.tw/Portal.do">臺北市學習歷程檔案系統</a></li>
-	          <li><a class="white-text" href="https://sschool.tp.edu.tw/Login.action?schNo=403303">台北市高中第二代校務行政系統</a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="footer-copyright">
-	    <div class="container">
-			<p class="center-align">Made by <a class="orange-text text-lighten-3" href="http://www.materializecss.cn">Materialize</a></p>
-	    </div>
-	  </div>
-	</footer>
-  </body>
-		<script src="https://unpkg.com/vue/dist/vue.js"></script>
-		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="js/materialize.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-		<script type="text/javascript">
-			var active = false;
-						
-			new Vue({
-			    el: '#app',
-			    data: {
-			        fontsizesetting: 30,
-			        fontStyle: {
-			            'font-size': '30px'
-			        }
-			    },
-			    methods: {
-			        increasefontsize() {
-			            this.fontStyle['font-size'] = `${this.fontsizesetting+= 5}px`
-			        },
-			        decreasefontsize() {
-			            this.fontStyle['font-size'] = `${this.fontsizesetting-= 5}px`
-			        },
-			    }
-			})
 
-			function DeletePost(id)
-			{
-			  if (confirm("請確認是否刪除此貼文？"))
-			    location.href = "delPost.php?show_posts=" + id;
-			}
-			
-			function check_data()
-			{		
-				if (document.myForm.subject.value.length == 0)
-				  {
-					alert("回覆主題一定要填寫");
-					return false;
-				  }
-				  if (document.myForm.subject.value.length > 15)
-				  {
-					alert("回覆主題不可以超過15個字元");
-					return false;
-				  }
-				  if (document.myForm.content.value.length == 0)
-				  {
-					alert("回覆內容一定要填寫");
-					return false;
-				  }
-				  if (document.myForm.content.value.length > 40)
-				  {
-					alert("回覆內容不可以超過40個字元");
-					return false;
-				  }				
-			  myForm.submit();
-			}
-			
-			function check_report()
-			{		
-				if (document.report.report.value.length == 0)
-				  {
-					alert("檢舉原因一定要填寫");
-					return false;
-				  }
-				  if (document.report.report.value.length > 15)
-				  {
-					alert("檢舉原因不可以超過15個字元");
-					return false;
-				  }
-				  if (document.report.report_content.value.length == 0)
-				  {
-					alert("檢舉附註內容一定要填寫");
-					return false;
-				  }
-				  if (document.report.report_content.value.length > 40)
-				  {
-					alert("檢舉附註內容不可以超過40個字元");
-					return false;
-				  }				
-			  report.submit();
-			}
-			
-			function reset(){
-				document.myForm.subject.value = ""
-				document.myForm.content.value = ""
-			}
-			
-			function reset_report(){
-				document.report.report.value = ""
-				document.report.report_content.value = ""
-			}
-			
-			$(document).ready(function(){
-				$('.parallax').parallax();
-				$('.button-collapse').sideNav();
-				$('.carousel.carousel-slider').carousel({full_width: true});
-				$('.modal').modal();
-				$('.materialboxed').materialbox();
-				$('.tooltipped').tooltip({delay: 50});
-				$('.chips').material_chip();
-				$('.collapsible').collapsible();
-				$('.carousel').carousel();
-				$('.slider').slider({full_width: true});
-				$('select').material_select();
-				$(".button-collapse").sideNav();
-			});
-			
-		</script>
-		
+
+	<br><br>
+	
+	<footers><footers>
+	
+</div>	
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/materialize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script type="text/javascript">
+	
+	Vue.component('footers', {
+	  template:  
+		`<footer class="page-footer brown">
+			<div class="container">
+			  <div class="row">
+				<div class="col l6 s12">
+				  <h5 class="white-text">南湖資訊社</h5>
+				  <p class="grey-text text-lighten-4">We are students of Nanhu High School and we love Computer Science and Information Engineering.</p>
+				  <p class="grey-text text-lighten-4">This website is completed by our students and teachers.</p>
+				</div>
+				<div class="col l3 s12">
+				  <h5 class="white-text">相關連結</h5>
+				  <ul>
+					<li><a class="white-text" href="http://www.nhush.tp.edu.tw/default_page.asp">南湖高中官網</a></li>
+					<li><a class="white-text" href="https://e-portfolio.cooc.tp.edu.tw/Portal.do">臺北市學習歷程檔案系統</a></li>
+					<li><a class="white-text" href="https://sschool.tp.edu.tw/Login.action?schNo=403303">台北市高中第二代校務行政系統</a></li>
+				  </ul>
+				</div>
+			  </div>
+			</div>
+			<div class="footer-copyright">
+			  <div class="container">
+				<p class="center-align">Made by <a class="orange-text text-lighten-3" href="http://www.materializecss.cn">Materialize</a></p>
+			  </div>
+			</div>
+		</footer>`
+	})
+	
+	new Vue({
+	    el: '#app',
+	    data: {
+	        fontsizesetting: 30,
+	        fontStyle: {
+	            'font-size': '30px'
+	        }
+	    },
+	    methods: {
+	        increasefontsize() {
+	            this.fontStyle['font-size'] = `${this.fontsizesetting+= 5}px`
+	        },
+	        decreasefontsize() {
+	            this.fontStyle['font-size'] = `${this.fontsizesetting-= 5}px`
+	        },
+	    }
+	})
+	
+	function DeletePost(id)
+	{
+	  if (confirm("請確認是否刪除此貼文？"))
+	    location.href = "delPost.php?show_posts=" + id;
+	}
+	
+	function check_data()
+	{		
+		if (document.myForm.subject.value.length == 0)
+		  {
+			alert("回覆主題一定要填寫");
+			return false;
+		  }
+		  if (document.myForm.subject.value.length > 15)
+		  {
+			alert("回覆主題不可以超過15個字元");
+			return false;
+		  }
+		  if (document.myForm.content.value.length == 0)
+		  {
+			alert("回覆內容一定要填寫");
+			return false;
+		  }
+		  if (document.myForm.content.value.length > 40)
+		  {
+			alert("回覆內容不可以超過40個字元");
+			return false;
+		  }				
+	  myForm.submit();
+	}
+	
+	function check_report()
+	{		
+		if (document.report.report.value.length == 0)
+		  {
+			alert("檢舉原因一定要填寫");
+			return false;
+		  }
+		  if (document.report.report.value.length > 15)
+		  {
+			alert("檢舉原因不可以超過15個字元");
+			return false;
+		  }
+		  if (document.report.report_content.value.length == 0)
+		  {
+			alert("檢舉附註內容一定要填寫");
+			return false;
+		  }
+		  if (document.report.report_content.value.length > 40)
+		  {
+			alert("檢舉附註內容不可以超過40個字元");
+			return false;
+		  }				
+	  report.submit();
+	}
+	
+	function reset(){
+		document.myForm.subject.value = ""
+		document.myForm.content.value = ""
+	}
+	
+	function reset_report(){
+		document.report.report.value = ""
+		document.report.report_content.value = ""
+	}
+	
+	$(document).ready(function(){
+		$('.parallax').parallax();
+		$('.button-collapse').sideNav();
+		$('.carousel.carousel-slider').carousel({full_width: true});
+		$('.modal').modal();
+		$('.materialboxed').materialbox();
+		$('.tooltipped').tooltip({delay: 50});
+		$('.chips').material_chip();
+		$('.collapsible').collapsible();
+		$('.carousel').carousel();
+		$('.slider').slider({full_width: true});
+		$('select').material_select();
+		$(".button-collapse").sideNav();
+	});	
+</script>
 </html>

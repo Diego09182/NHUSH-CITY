@@ -38,36 +38,31 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>NHUSH-CITY</title>
-
-  <!-- CSS  -->
+	<!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
-  <link rel="stylesheet" type="text/css" href="css/hover.css"/>
-  <link href="https://gnehs.github.io/ChatUI/css/ChatUI.css" rel="stylesheet">
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
 </head>
 <style type="text/css">
 
 	body{
 		font-family: 'Noto Sans TC', sans-serif;
 	}
-	
-	
+		
 	h6{
 		font-size: 1.6875rem;
-		line-height: 2rem;
+		line-height: 3rem;
 	}
 	
-	.page-footer {
-	  bottom: 0;
-	  width: 100%;
+	#content{
+		height:70rem;
 	}
-
 	
-	</style>
-	<body>
+</style>
+<body>
 	
 		<nav class="light lighten-1 brown" role="navigation">
 			<div class="nav-wrapper container"><a id="logo-container" href="home_article.php" class="brand-logo center">NHUSH-CITY</a>
@@ -124,128 +119,123 @@
 			</div>
 		</nav>
 		 
-		<br>
+	<br>
 		
-		<div class="fixed-action-btn horizontal click-to-toggle">
-			<a class="btn-floating btn-large brown">
-				<i class="material-icons">menu</i>
-			</a>
-			<ul>
-				<li><a href="modify.php" class="btn-floating btn waves-effect waves-light green"><i class="tooltipped" data-position="top" data-tooltip="修改資料"><i class="material-icons">perm_identity</i></i></a></li>
-				<li><a href="myhome.php" class="btn-floating btn waves-effect waves-light blue"><i class="tooltipped" data-position="top" data-tooltip="我的小屋"><i class="material-icons">view_quilt</i></i></a></li>
-			</ul>
-		</div>
-		
-		<?php
-			
-			//取得要顯示之記錄
-			$id = $_GET["id"];
-			
-			//設定現行瀏覽的文章
-			setcookie("article_id", $id);
-			
-			//執行SQL查詢
-			$sql = "SELECT id,title,tag,article_content,owner,date FROM article where id = $id";
-			$result = execute_sql($link, "news", $sql);
-			
-		?>
+	<div class="fixed-action-btn horizontal click-to-toggle">
+		<a class="btn-floating btn-large brown">
+			<i class="material-icons">menu</i>
+		</a>
+		<ul>
+			<li><a href="modify.php" class="btn-floating btn waves-effect waves-light green"><i class="tooltipped" data-position="top" data-tooltip="修改資料"><i class="material-icons">perm_identity</i></i></a></li>
+			<li><a href="myhome.php" class="btn-floating btn waves-effect waves-light blue"><i class="tooltipped" data-position="top" data-tooltip="我的小屋"><i class="material-icons">view_quilt</i></i></a></li>
+		</ul>
+	</div>
 	
 	<div id="app">	
 		<div class="container">	
 			<?php
+			
+				//取得要顯示之記錄
+				$id = $_GET["id"];
+				
+				//設定現行瀏覽的文章
+				setcookie("article_id", $id);
+				
+				//執行SQL查詢
+				$sql = "SELECT id,title,tag,article_content,owner,date FROM article where id = $id";
+				$result = execute_sql($link, "news", $sql);
+			
 				while ($row = mysqli_fetch_assoc($result))
-				{
+				{		
+					//執行SQL查詢身分
+					$owner_id = $row['owner'];
+					$member_sql = "SELECT * FROM users Where id = $owner_id";
+					$member_result = execute_sql($link, "member", $member_sql);
+					$member_row = mysqli_fetch_assoc($member_result);
 				
-				//執行SQL查詢身分
-				$owner_id = $row['owner'];
-				$member_sql = "SELECT * FROM users Where id = $owner_id";
-				$member_result = execute_sql($link, "member", $member_sql);
-				$member_row = mysqli_fetch_assoc($member_result);
-				
-				echo"<div class='row'>";
-				   echo" <div class='col m12 s12'>";
-						echo"<div id='introduction' class='section scrollspy'>";
-							echo"<h3>".$row["title"]."</h3>";
-							echo"<div class='row'>";
-							  echo"<div class='chip chip-two'>".$row["tag"] ."</div>";
-								echo"<a class='fontSIZE waves-effect waves-light btn brown right' herf='#' @click='decreasefontsize'>A-</a>";
-								echo"<a class='fontSIZE waves-effect waves-light btn brown right' herf='#' @click='increasefontsize'>A+</a>";
-							if ($member_id == 45 or $member_id == $row["user_id"]){
-								echo"<br><br>";
-								echo"<a class='waves-effect waves-light btn brown right' onclick='DeleteNote($id)'>";
-									echo"刪除";
-								echo"</a>";
-							}
+					echo"<div class='row' id='content'>";
+					   echo" <div class='col m12 s12'>";
+							echo"<div id='introduction' class='section scrollspy'>";
+								echo"<h3>".$row["title"]."</h3>";
+								echo"<div class='row'>";
+								  echo"<div class='chip chip-two'>".$row["tag"] ."</div>";
+									echo"<a class='fontSIZE waves-effect waves-light btn brown right' herf='#' @click='decreasefontsize'>A-</a>";
+									echo"<a class='fontSIZE waves-effect waves-light btn brown right' herf='#' @click='increasefontsize'>A+</a>";
+								if ($member_id == 45 or $member_id == $row["user_id"])
+								{
+									echo"<br><br>";
+									echo"<a class='waves-effect waves-light btn brown right' onclick='DeleteNote($id)'>";
+										echo"刪除";
+									echo"</a>";
+								}
+								echo"</div>";
+									echo"<br>";
+								echo"<div class='author'>";
+									echo"<i class='left'>作者:".$member_row["account"]."</i>";
+									echo"<i class='right'>發文時間:".$row["date"]."</i>";
+								echo"</div>";
 							echo"</div>";
-								echo"<br>";
-							echo"<div class='author'>";
-								echo"<i class='left'>作者:".$member_row["account"]."</i>";
-								echo"<i class='right'>發文時間:".$row["date"]."</i>";
-							echo"</div>";
+							echo"<br>";
+							echo"<hr>";
+							echo"<h6 v-bind:style='fontStyle'>".$row["article_content"]."</h6>";	
 						echo"</div>";
-						echo"<br>";
-						echo"<hr>";
-						echo"<h6 v-bind:style='fontStyle'>".$row["article_content"]."</h6>";	
-					echo"</div>";
-				echo"</div>";
-				
+					echo"</div>";			
 				}
 			?>
 		</div>
+	</div>
 	
-		<footer class="page-footer brown">
-			<div class="container">
-			  <div class="row">
-				<div class="col m6 s12">
-				  <h5 class="white-text">南湖資訊社</h5>
-				  <p class="grey-text text-lighten-4">{{about}}</p>
-				  <p class="grey-text text-lighten-4">{{copyright}}</p>
-				</div>
-				<div class="col m3 s12">
-				  <h5 class="white-text">相關連結</h5>
-				  <ul>
-					<li><a class="white-text" href="http://www.nhush.tp.edu.tw/default_page.asp">南湖高中官網</a></li>
-					<li><a class="white-text" href="https://e-portfolio.cooc.tp.edu.tw/Portal.do">臺北市學習歷程檔案系統</a></li>
-					<li><a class="white-text" href="https://sschool.tp.edu.tw/Login.action?schNo=403303">台北市高中第二代校務行政系統</a></li>
-				  </ul>
-				</div>
-			  </div>
+	<footer class="page-footer brown">
+		<div class="container">
+		  <div class="row">
+			<div class="col m6 s12">
+			  <h5 class="white-text">南湖資訊社</h5>
+			  <p class="grey-text text-lighten-4">We are students of Nanhu High School and we love Computer Science and Information Engineering.</p>
+			  <p class="grey-text text-lighten-4">This website is completed by our students and teachers.</p>
 			</div>
-			<div class="footer-copyright">
-			  <div class="container">
-				<p class="center-align">Made by <a class="orange-text text-lighten-3" href="http://www.materializecss.cn">Materialize</a></p>
-				<br>
-			  </div>
+			<div class="col m3 s12">
+			  <h5 class="white-text">相關連結</h5>
+			  <ul>
+				<li><a class="white-text" href="http://www.nhush.tp.edu.tw/default_page.asp">南湖高中官網</a></li>
+				<li><a class="white-text" href="https://e-portfolio.cooc.tp.edu.tw/Portal.do">臺北市學習歷程檔案系統</a></li>
+				<li><a class="white-text" href="https://sschool.tp.edu.tw/Login.action?schNo=403303">台北市高中第二代校務行政系統</a></li>
+			  </ul>
 			</div>
-		</footer>
-	</div>		
+		  </div>
+		</div>
+		<div class="footer-copyright">
+		  <div class="container">
+			<p class="center-align">Made by <a class="orange-text text-lighten-3" href="http://www.materializecss.cn">Materialize</a></p>
+			<br>
+		  </div>
+		</div>
+	</footer>
 		
-	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
-	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script src="js/materialize.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-	<script type="text/javascript">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/materialize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script type="text/javascript">
 		
 	new Vue({
 	    el: '#app',
 	    data: {
-			about:'We are students of Nanhu High School and we love Computer Science and Information Engineering.',
-			copyright:'This website is completed by our students and teachers.',
-	        fontsizesetting: 27,
+	        fontsizesetting: 30,
 	        fontStyle: {
-	            'font-size': '27px'
+	            'font-size': '30px'
 	        }
 	    },
 	    methods: {
 	        increasefontsize() {
-	            this.fontStyle['font-size'] = `${this.fontsizesetting++}px`
+	            this.fontStyle['font-size'] = `${this.fontsizesetting+= 4}px`
 	        },
 	        decreasefontsize() {
-	            this.fontStyle['font-size'] = `${this.fontsizesetting--}px`
-	        }
+	            this.fontStyle['font-size'] = `${this.fontsizesetting-= 4}px`
+	        },
 	    }
 	})
 	
@@ -270,7 +260,6 @@
 		$(".button-collapse").sideNav();
 	});
 	
-	</script>
-		
-	</body>
+</script>	
+</body>
 </html>
