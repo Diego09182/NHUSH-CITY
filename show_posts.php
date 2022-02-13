@@ -4,21 +4,15 @@
 	$news_id = $_GET["id"];
 	setcookie("news_id", $news_id);
 	
-	//如果 cookie 中的 passed 變數不等於 TRUE
-	//表示尚未登入網站，將使用者導向首頁 index.html
-	$passed = $_COOKIE{"passed"};
-	$member_id = $_COOKIE{"id"};
+	//登入狀態驗證
+	session_start();
+	if (empty($_SESSION["user"]))
+	{
+		header("location:index.html");
+		exit();
+	}
 	
-	if ($_COOKIE{"passed"} != "TRUE")
-	{
-			header("location:index.html");
-			exit();
-	}
-	if ($_COOKIE{"id"} == "")
-	{
-			header("location:index.html");
-			exit();
-	}
+	$member_id = $_SESSION["user"];
 		
 	require_once("dbtools.inc.php");
 			
@@ -46,8 +40,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
   <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
 </head>
-	
-  <style type="text/css">
+<style type="text/css">
   
   body{
   	font-family: 'Noto Sans TC', sans-serif;
@@ -68,9 +61,8 @@
   	color:white;
   }
   
-  </style>
-<body>
-<div id="app">  	 
+</style>
+<body> 	  	 
 	<nav class="light lighten-1 brown" role="navigation">
 		<div class="nav-wrapper container"><a id="logo-container" href="forum.php" class="brand-logo center">NHUSH-CITY</a>
 		  <ul class="left hide-on-med-and-down">
@@ -152,7 +144,7 @@
 		</ul>
 	</div>
 	
-	<div class="container center">
+	<div class="container center" id="app">
 	 
 	<br>
 	
@@ -382,88 +374,82 @@
 	<div id="modal1" class="modal">
 		<div class="modal-content">
 			<h4 class="center-align">回覆貼文</h4>
-				<div class="col s12 m6">
-					<div class="card blue-grey darken-1 card">
-						  <div class="card-content white-text">
-							<form name="myForm" method="post" action="post_reply.php">
-								<input type="hidden" name="reply_id" value="<?php echo $id ?>">
-								<input type="hidden" name="avater" value="<?php echo $user_avatar ?>">
-								<span class="card-title">留言板</span>
-									<div class="input-field col s3 m3 right">
-										<i class="material-icons prefix">perm_identity</i>
-										<input class="validate" name="author" type="text" value="<?php echo $users_row{"account"} ?>" readonly>
-										<label for="icon_prefix2">帳號</label>
-									</div>
-								<div class="row">
-									<div class="input-field col s12 m12">
-										<i class="material-icons prefix">mode_edit</i>
-										<input name="subject"  id="last_name" type="text" class="validate" length="15">
-										<label for="last_name">主題</label>
-									</div>
-									<div class="input-field col s12 m12">
-									  <i class="material-icons prefix">mode_edit</i>
-									  <textarea name="content" id="textarea1" class="materialize-textarea" length="40"></textarea>
-									  <label for="last_name">內容</label>
-									</div>
+			<div class="col s12 m6">
+				<div class="card blue-grey darken-1 card">
+					  <div class="card-content white-text">
+						<form name="myForm" method="post" action="post_reply.php">
+							<input type="hidden" name="reply_id" value="<?php echo $id ?>">
+							<input type="hidden" name="avater" value="<?php echo $user_avatar ?>">
+							<span class="card-title">留言板</span>
+								<div class="input-field col s3 m3 right">
+									<i class="material-icons prefix">perm_identity</i>
+									<input class="validate" name="author" type="text" value="<?php echo $users_row{"account"} ?>" readonly>
+									<label for="icon_prefix2">帳號</label>
 								</div>
+							<div class="row">
+								<div class="input-field col s12 m12">
+									<i class="material-icons prefix">mode_edit</i>
+									<input name="subject"  id="last_name" type="text" class="validate" length="15">
+									<label for="last_name">主題</label>
+								</div>
+								<div class="input-field col s12 m12">
+								  <i class="material-icons prefix">mode_edit</i>
+								  <textarea name="content" id="textarea1" class="materialize-textarea" length="40"></textarea>
+								  <label for="last_name">內容</label>
+								</div>
+							</div>
+							<br>
+							<div class="card-action center-align">
+								<a class="waves-effect waves-light btn brown" id="button" onClick="check_data()">發送</a>
+								<a class="waves-effect waves-light btn brown" id="button" onClick="reset()">重新輸入</a>
 								<br>
-								<div class="card-action center-align">
-									<a class="waves-effect waves-light btn brown" id="button" onClick="check_data()">發送</a>
-									<a class="waves-effect waves-light btn brown" id="button" onClick="reset()">重新輸入</a>
-									<br>
-									<br>
-									<a href="main.php">回首頁</a>
-								</div>
-							</form>
-						</div>
+								<br>
+								<a href="main.php">回首頁</a>
+							</div>
+						</form>
 					</div>
 				</div>
+			</div>
 		</div>
 	</div>
 	
-
-
 	<br><br>
 	
-	<footers><footers>
-	
-</div>	
+	<footer class="page-footer brown">
+		<div class="container">
+		  <div class="row">
+			<div class="col l6 s12">
+			  <h5 class="white-text">南湖資訊社</h5>
+			  <p class="grey-text text-lighten-4">We are students of Nanhu High School and we love Computer Science and Information Engineering.</p>
+			  <p class="grey-text text-lighten-4">This website is completed by our students and teachers.</p>
+			</div>
+			<div class="col l3 s12">
+			  <h5 class="white-text">相關連結</h5>
+			  <ul>
+				<li><a class="white-text" href="http://www.nhush.tp.edu.tw/default_page.asp">南湖高中官網</a></li>
+				<li><a class="white-text" href="https://e-portfolio.cooc.tp.edu.tw/Portal.do">臺北市學習歷程檔案系統</a></li>
+				<li><a class="white-text" href="https://sschool.tp.edu.tw/Login.action?schNo=403303">台北市高中第二代校務行政系統</a></li>
+			  </ul>
+			</div>
+		  </div>
+		</div>
+		<div class="footer-copyright">
+		  <div class="container">
+			<p class="center-align">Made by <a class="orange-text text-lighten-3" href="http://www.materializecss.cn">Materialize</a></p>
+		  </div>
+		</div>
+	</footer>
+</div>		
 </body>
+<!--  Scripts-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script src="js/init.js"></script>
 <script type="text/javascript">
-	
-	Vue.component('footers', {
-	  template:  
-		`<footer class="page-footer brown">
-			<div class="container">
-			  <div class="row">
-				<div class="col l6 s12">
-				  <h5 class="white-text">南湖資訊社</h5>
-				  <p class="grey-text text-lighten-4">We are students of Nanhu High School and we love Computer Science and Information Engineering.</p>
-				  <p class="grey-text text-lighten-4">This website is completed by our students and teachers.</p>
-				</div>
-				<div class="col l3 s12">
-				  <h5 class="white-text">相關連結</h5>
-				  <ul>
-					<li><a class="white-text" href="http://www.nhush.tp.edu.tw/default_page.asp">南湖高中官網</a></li>
-					<li><a class="white-text" href="https://e-portfolio.cooc.tp.edu.tw/Portal.do">臺北市學習歷程檔案系統</a></li>
-					<li><a class="white-text" href="https://sschool.tp.edu.tw/Login.action?schNo=403303">台北市高中第二代校務行政系統</a></li>
-				  </ul>
-				</div>
-			  </div>
-			</div>
-			<div class="footer-copyright">
-			  <div class="container">
-				<p class="center-align">Made by <a class="orange-text text-lighten-3" href="http://www.materializecss.cn">Materialize</a></p>
-			  </div>
-			</div>
-		</footer>`
-	})
 	
 	new Vue({
 	    el: '#app',
