@@ -10,7 +10,6 @@
 響應式設計
 <br>
 <h3>系統功能簡介</h3>
-<br>
 管理後臺
 <br>
 留言
@@ -21,12 +20,13 @@
 <br>
 檢舉文章
 <br>
-點讚/噓文章
+評價文章
 <br>
 <h3>開發語言/框架</h3>
-前端用Materializecss+Vue.js
+CSS框架:Materializecss
+JS框架:Vue.js
 <br>
-後端用純PHP
+後端開發語言:PHP
 <br>
 資料庫:MySQL
 <br>
