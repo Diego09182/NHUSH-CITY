@@ -1,18 +1,14 @@
 <?php
-	//檢查 cookie 中的 passed 變數是否等於 TRUE
-	$passed = $_COOKIE{"passed"};
-	$id = $_COOKIE{"id"};
+
+	//登入狀態驗證
+	session_start();
+	if (empty($_SESSION["user"]))
+	{
+		header("location:index.html");
+		exit();
+	}
 	
-	if ($_COOKIE{"passed"} != "TRUE")
-	{
-			header("location:index.html");
-			exit();
-	}
-	if ($_COOKIE{"id"} == "")
-	{
-			header("location:index.html");
-			exit();
-	}
+	$id = $_SESSION["user"];
 
     require_once("dbtools.inc.php");
 		
@@ -62,7 +58,11 @@
 						<div class="background">
 							<img src="images/head.jpg">
 						</div>
-						<a><img class="circle" src="images/dog.jpg"></a>
+						<?php
+							echo"<a>";
+								echo"<img class='circle' src='$user_avatar'>";
+							echo"</a>";
+						?>
 						<a><span class="name">十三</span></a>
 					</div>
 				</li>
@@ -286,95 +286,98 @@
 	  </div>
 	</footer>
   </body>
-		<script src="https://unpkg.com/vue/dist/vue.js"></script>
-		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="js/materialize.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-		<script type="text/javascript">
+<!--  Scripts-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/materialize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v6.0"></script>
+<script src="js/init.js"></script>
+<script type="text/javascript">
 			
-			function check_data()
-			{		
-				if (document.myForm.subject.value.length == 0)
-				  {
-					alert("主題一定要填寫");
-					return false;
-				  }
-				  if (document.myForm.subject.value.length > 15)
-				  {
-					alert("主題不可以超過15個字元");
-					return false;
-				  }
-				  if (document.myForm.content.value.length == 0)
-				  {
-					alert("內容一定要填寫");
-					return false;
-				  }
-				  if (document.myForm.content.value.length > 80)
-				  {
-					alert("內容不可以超過80個字元");
-					return false;
-				  }				
-			  myForm.submit();
-			}
+	function check_data()
+	{		
+		if (document.myForm.subject.value.length == 0)
+		  {
+			alert("主題一定要填寫");
+			return false;
+		  }
+		  if (document.myForm.subject.value.length > 15)
+		  {
+			alert("主題不可以超過15個字元");
+			return false;
+		  }
+		  if (document.myForm.content.value.length == 0)
+		  {
+			alert("內容一定要填寫");
+			return false;
+		  }
+		  if (document.myForm.content.value.length > 80)
+		  {
+			alert("內容不可以超過80個字元");
+			return false;
+		  }				
+	  myForm.submit();
+	}
+	
+	function check_report()
+	{		
+		if (document.report.report.value.length == 0)
+		  {
+			alert("檢舉原因一定要填寫");
+			return false;
+		  }
+		  if (document.report.report.value.length > 15)
+		  {
+			alert("檢舉原因不可以超過15個字元");
+			return false;
+		  }
+		  if (document.report.report_content.value.length == 0)
+		  {
+			alert("檢舉附註內容一定要填寫");
+			return false;
+		  }
+		  if (document.report.report_content.value.length > 80)
+		  {
+			alert("檢舉附註內容不可以超過80個字元");
+			return false;
+		  }				
+	  report.submit();
+	}
+	
+	function DeleteNote(id)
+	{
+	  if (confirm("請確認是否刪除此日記？"))
+	    location.href = "delNote.php?show_note=" + id;
+	}
+	
+	function reset(){
+		document.myForm.subject.value = ""
+		document.myForm.content.value = ""
+	}
+	
+	function reset_report(){
+		document.report.report.value = ""
+		document.report.report_content.value = ""
+	}
+	
+	$(document).ready(function(){
+		$('.parallax').parallax();
+		$('.button-collapse').sideNav();
+		$('.carousel.carousel-slider').carousel({full_width: true});
+		$('.modal').modal();
+		$('.materialboxed').materialbox();
+		$('.tooltipped').tooltip({delay: 50});
+		$('.chips').material_chip();
+		$('.collapsible').collapsible();
+		$('.carousel').carousel();
+		$('.slider').slider({full_width: true});
+		$('select').material_select();
+		$(".button-collapse").sideNav();
+	});
 			
-			function check_report()
-			{		
-				if (document.report.report.value.length == 0)
-				  {
-					alert("檢舉原因一定要填寫");
-					return false;
-				  }
-				  if (document.report.report.value.length > 15)
-				  {
-					alert("檢舉原因不可以超過15個字元");
-					return false;
-				  }
-				  if (document.report.report_content.value.length == 0)
-				  {
-					alert("檢舉附註內容一定要填寫");
-					return false;
-				  }
-				  if (document.report.report_content.value.length > 80)
-				  {
-					alert("檢舉附註內容不可以超過80個字元");
-					return false;
-				  }				
-			  report.submit();
-			}
-			
-			function DeleteNote(id)
-			{
-			  if (confirm("請確認是否刪除此日記？"))
-			    location.href = "delNote.php?show_note=" + id;
-			}
-			
-			function reset(){
-				document.myForm.subject.value = ""
-				document.myForm.content.value = ""
-			}
-			
-			function reset_report(){
-				document.report.report.value = ""
-				document.report.report_content.value = ""
-			}
-			
-			$(document).ready(function(){
-				$('.parallax').parallax();
-				$('.button-collapse').sideNav();
-				$('.carousel.carousel-slider').carousel({full_width: true});
-				$('.modal').modal();
-				$('.materialboxed').materialbox();
-				$('.tooltipped').tooltip({delay: 50});
-				$('.chips').material_chip();
-				$('.collapsible').collapsible();
-				$('.carousel').carousel();
-				$('.slider').slider({full_width: true});
-				$('select').material_select();
-				$(".button-collapse").sideNav();
-			});
-			
-		</script>
+</script>
 </html>

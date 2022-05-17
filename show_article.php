@@ -1,18 +1,14 @@
 <?php
-	  //檢查 cookie 中的 passed 變數是否等於 TRUE
-	  $passed = $_COOKIE{"passed"};
-	  $id = $_COOKIE{"id"};
-	  
-	  if ($_COOKIE{"passed"} != "TRUE")
-	  {
-			header("location:index.html");
-			exit();
-	  }
-	  if ($_COOKIE{"id"} == "")
-	  {
-			header("location:index.html");
-			exit();
-	  }
+
+	//登入狀態驗證
+	session_start();
+	if (empty($_SESSION["user"]))
+	{
+		header("location:index.html");
+		exit();
+	}
+	
+	$id = $_SESSION["user"];
   
 	require_once("dbtools.inc.php");
 		
@@ -131,7 +127,7 @@
 		</ul>
 	</div>
 	
-	<div id="app">	
+	<div id="app">
 		<div class="container">	
 			<?php
 			
@@ -211,9 +207,8 @@
 		</div>
 	</footer>
 		
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>

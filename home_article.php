@@ -1,19 +1,14 @@
 <?php
 	 
-	//檢查 cookie 中的 passed 變數是否等於 TRUE
-	$passed = $_COOKIE{"passed"};
-	$id = $_COOKIE{"id"};
+	//登入狀態驗證
+	session_start();
+	if (empty($_SESSION["user"]))
+	{
+	  header("location:index.html");
+	  exit();
+	}
 	
-	if ($_COOKIE{"passed"} != "TRUE")
-	{
-		header("location:index.html");
-		exit();
-	}
-	if ($_COOKIE{"id"} == "")
-	{
-		header("location:index.html");
-		exit();
-	}
+	$id = $_SESSION["user"];
 	
 	require_once("dbtools.inc.php");
 		
@@ -43,59 +38,64 @@
 </head>
 <body>
 <div id="app">	
-  <nav class="light lighten-1 brown" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="main.php" class="brand-logo center">NHUSH-CITY</a>
-		<ul class="left hide-on-med-and-down">
-			<li><a class="waves-effect">名稱:<?php echo $row{"account"} ?></a></li>
-			<li><a class="waves-effect">姓名:<?php echo $row{"name"} ?></a></li>
-		</ul>
-		<ul class="right hide-on-med-and-down">
-		  	<li><a class="waves-effect" href="modify.php">修改資料</a></li>
-			<li><a class="waves-effect" href="myhome.php">我的小屋</a></li>
-			<?php
-				if ($id == 45)
-				{
-					echo"<li><a class='waves-effect' href='review.php'>審查文章</a></li>";
-				}
-			?>
-		</ul>
-	  <ul id="slide-out" class="side-nav">
-	    <li>
-			<div class="userView">
-				<div class="background">
-					<img src="images/head.jpg">
-				</div>
-				<a><img class="circle" src="images/dog.jpg"></a>
-				<a><span class="name">十三</span></a>
-			</div>
-	  	</li>
-		<blockquote>
-	    <li><a class="waves-effect"><i class="material-icons">info_outline</i>帳戶資訊</a></li>
-	    <li><a class="waves-effect">名稱:<?php echo $row{"account"} ?></a></li>
-		<li><a class="waves-effect">姓名:<?php echo $row{"name"} ?></a></li>
-		<li><a class="waves-effect">學號:<?php echo $row{"telephone"} ?></a></li>
-		<li><a class="waves-effect">行動電話:<?php echo $row{"cellphone"} ?></a></li>
-		<li><a class="" href="modify.php">我的小屋</a></li>
-		<li><a class="waves-effect"><i class="material-icons">info_outline</i>聯絡資訊</a></li>
-		<li><a class="waves-effect">ssss.gladmasy@gmail.com</a></li>
-	  		<li class="no-padding">
-	  		  <ul class="collapsible collapsible-accordion">
+
+	<nav class="light lighten-1 brown" role="navigation">
+		<div class="nav-wrapper container"><a id="logo-container" href="main.php" class="brand-logo center">NHUSH-CITY</a>
+			<ul class="left hide-on-med-and-down">
+				<li><a class="waves-effect">名稱:<?php echo $row{"account"} ?></a></li>
+				<li><a class="waves-effect">姓名:<?php echo $row{"name"} ?></a></li>
+			</ul>
+			<ul class="right hide-on-med-and-down">
+				<li><a class="waves-effect" href="modify.php">修改資料</a></li>
+				<li><a class="waves-effect" href="myhome.php">我的小屋</a></li>
+				<?php
+					if ($id == 45)
+					{
+						echo"<li><a class='waves-effect' href='review.php'>審查文章</a></li>";
+					}
+				?>
+			</ul>
+			<ul id="slide-out" class="side-nav">
 				<li>
-				  <a class="collapsible-header">開發者資訊<i class="material-icons">arrow_drop_down</i></a>
-				  <div class="collapsible-body">
-					<ul>
-					  <li><a href="#">ssss</a></li>
-					  <li><a href="https://github.com/Diego09182"><img src="images/GitHub.png"></a></li>
-					</ul>
-				  </div>
+					<div class="userView">
+						<div class="background">
+							<img src="images/head.jpg">
+						</div>
+						<?php
+							echo"<a>";
+								echo"<img class='circle' src='$user_avatar'>";
+							echo"</a>";
+						?>
+						<a><span class="name">十三</span></a>
+					</div>
 				</li>
-	  		  </ul>
-	  		</li>
-		</blockquote>
-	  </ul>
-	  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
+				<blockquote>
+				<li><a class="waves-effect"><i class="material-icons">info_outline</i>帳戶資訊</a></li>
+				<li><a class="waves-effect">名稱:<?php echo $row{"account"} ?></a></li>
+				<li><a class="waves-effect">姓名:<?php echo $row{"name"} ?></a></li>
+				<li><a class="waves-effect">學號:<?php echo $row{"telephone"} ?></a></li>
+				<li><a class="waves-effect">行動電話:<?php echo $row{"cellphone"} ?></a></li>
+				<li><a class="" href="modify.php">我的小屋</a></li>
+				<li><a class="waves-effect"><i class="material-icons">info_outline</i>聯絡資訊</a></li>
+				<li><a class="waves-effect">ssss.gladmasy@gmail.com</a></li>
+				<li class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<a class="collapsible-header">開發者資訊<i class="material-icons">arrow_drop_down</i></a>
+					<div class="collapsible-body">
+						<ul>
+						<li><a href="#">ssss</a></li>
+						<li><a href="https://github.com/Diego09182"><img src="images/GitHub.png"></a></li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+				</li>
+				</blockquote>
+			</ul>
+		  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+		</div>
+	</nav>
   
 	<banner></banner>
 	
@@ -150,9 +150,9 @@
 								</div>
 							  <br>
 							  <div class="card-action center-align">
-								<a class="waves-effect waves-light btn" onClick="check_data()">發送</a>
-								<a class="waves-effect waves-light btn" onClick="reset()">重新輸入</a>
-								<br>
+								<a class="waves-effect waves-light btn brown" onClick="check_data()">發送</a>
+								<a class="waves-effect waves-light btn brown" onClick="reset()">重新輸入</a>
+								<br><br>
 								<a href="main.php">回首頁</a>
 							  </div>
 							</form>
