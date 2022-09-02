@@ -1,20 +1,14 @@
 <?php
 
-	//檢查 cookie 中的 passed 變數是否等於 TRUE
-	$passed = $_COOKIE{"passed"};
-	$id = $_COOKIE{"id"};
+	//登入狀態驗證
+	session_start();
+	if (empty($_SESSION["user"]))
+	{
+		header("location:index.html");
+		exit();
+	}
 	
-	//表示尚未登入網站，將使用者導向首頁 index.html
-	if ($passed != "TRUE")
-	{
-		header("location:index.html");
-		exit();
-	}
-	if ($id == "")
-	{
-		header("location:index.html");
-		exit();
-	}
+	$id = $_SESSION["user"];
 	
     require_once("dbtools.inc.php");
 		
@@ -25,21 +19,20 @@
     $users_sql = "SELECT * FROM users Where id = $id";
     $users_result = execute_sql($link, "member", $users_sql);	
     $users_row = mysqli_fetch_assoc($users_result);
-		
+	$user_avatar = $users_row{"avatar"};	
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>NHUSH-CITY</title>
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-  <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
+  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  	<title>NHUSH-CITY</title>
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
 </head>
 <body>
 <div id="app">	
@@ -64,7 +57,11 @@
 				<div class="background">
 					<img src="images/head.jpg">
 				</div>
-				<a><img class="circle" src="images/dog.jpg"></a>
+				<?php
+					echo"<a>";
+						echo"<img class='circle' src='$user_avatar'>";
+					echo"</a>";
+				?>
 				<a><span class="name">十三</span></a>
 			</div>
 	  	</li>
@@ -75,38 +72,28 @@
 		<li><a class="waves-effect">學號:<?php echo $users_row{"student_ID"} ?></a></li>
 		<li><a class="waves-effect">行動電話:<?php echo $users_row{"cellphone"} ?></a></li>
 		<li><a href="myhome.php">我的小屋</a></li>
-		<li><a href="modify.php">修改資料</a></li>
 		<li><a class="waves-effect"><i class="material-icons">info_outline</i>聯絡資訊</a></li>
 		<li><a class="waves-effect">ssss.gladmasy@gmail.com</a></li>
-	  		<li class="no-padding">
-	  		  <ul class="collapsible collapsible-accordion">
+	  	<li class="no-padding">
+			<ul class="collapsible collapsible-accordion">
 				<li>
-				  <a class="collapsible-header">開發者資訊<i class="material-icons">arrow_drop_down</i></a>
-				  <div class="collapsible-body">
-					<ul>
-					  <li><a href="#">ssss</a></li>
-					  <li><a href="https://github.com/Diego09182"><img src="images/GitHub.png"></a></li>
-					</ul>
-				  </div>
+					<a class="collapsible-header">開發者資訊<i class="material-icons">arrow_drop_down</i></a>
+					<div class="collapsible-body">
+						<ul>
+							<li><a href="#">ssss</a></li>
+							<li><a href="https://github.com/Diego09182"><img src="images/GitHub.png"></a></li>
+						</ul>
+					</div>
 				</li>
-	  		  </ul>
-	  		</li>
+			</ul>
+	  	</li>
 		</blockquote>
 	  </ul>
 	  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
 
-	<div class="section no-pad-bot" id="index-banner">
-		<div class="container">
-			<br><br>
-			<h1 class="center header-text animate__animated animate__fadeIn" id="index-title1" >南湖高中</h1>
-			<div class="row center">
-				<h5 class="header col s12 light" id="index-title2">An exclusive community for Nanhu High School</h5>
-			</div>
-			<br><br>
-		</div>
-	</div>
+	<banner></banner>
 	
 	<div class="fixed-action-btn horizontal click-to-toggle">
 	    <a class="btn-floating btn-large brown">
@@ -116,95 +103,91 @@
 			<li><a href="myhome.php" class="btn-floating btn waves-effect waves-light blue"><i class="tooltipped" data-position="top" data-tooltip="我的小屋"><i class="material-icons">view_quilt</i></i></a></li>
 		</ul>
 	</div>
-  <body>
-	
 	
 	<div class="container">
-		<div class="container">
-			<h3 class="center-align">修改資料</h3>
-			<div class="card">
-				<form name="myForm" method="post" action="update.php" >
-					<div class="card blue-grey darken-1 card">
-						  <div class="card-content white-text">
-							<form action="update.php" method="post" name="myForm">
-								<span class="card-title">使用者資料(標示「*」欄位請務必填寫)</span>
-									<div class="input-field col s6">
-										<p>*使用者帳號:</p>
-										<br>
-										<p><?php echo $users_row{"account"} ?></p>
-									</div>
-									<div class="row">
-										<div class="input-field col m6">
-											*使用者密碼：
-											<input name="password" type="password" class="validate" size="10" length="10" value="<?php echo $users_row{"password"} ?>">
-											(請使用英文或數字鍵，勿使用特殊字元)
-										</div>
-										<div class="input-field col m6">
-											*密碼確認：
-											<input name="re_password" type="password" class="validate" size="10" length="10" value="<?php echo $users_row{"password"} ?>">
-											(再輸入一次密碼，並記下您的使用者名稱與密碼)
-										</div>
-									</div>
-									<div class="input-field col s8">
-										*使用者姓名：
-										<input name="name"  id="name" type="text" class="validate" size="3" length="3" value="<?php echo $users_row{"name"} ?>">
-										(使用非真實姓名管理員將刪除帳號)
-									</div>
+		<h3 class="center-align">修改資料</h3>
+		<div class="card">
+			<form name="myForm" method="post" action="update.php" >
+				<div class="card blue-grey darken-1 card">
+					  <div class="card-content white-text">
+						<form action="update.php" method="post" name="myForm">
+							<span class="card-title">使用者資料(標示「*」欄位請務必填寫)</span>
+							<div class="input-field col s6">
+									<p>*使用者帳號:</p>
 									<br>
-									<div class="row">
-										<p>*生日:民國 年 月 日</p>
-										<div class="input-field">
-											<input class="col m4" name="year" type="text" class="validate" size="2" value="<?php echo $users_row{"year"} ?>"> 
-											<input class="col m4" name="month" type="text" class="validate" name="month" size="2" value="<?php echo $users_row{"month"} ?>">
-											<input class="col m4" name="day" type="text" class="validate" name="day" size="2" value="<?php echo $users_row{"day"} ?>">
-										</div>
+									<p><?php echo $users_row{"account"} ?></p>
+								</div>
+								<div class="row">
+									<div class="input-field col m6">
+										*使用者密碼：
+										<input name="password" type="password" class="validate" size="10" length="10" value="<?php echo $users_row{"password"} ?>">
+										(請使用英文或數字鍵，勿使用特殊字元)
 									</div>
-									<div class="row">
-										<div class="input-field col m6">
-											*學號：
-											<input name="student_ID" type="text" size="8" length="8" value="<?php echo $users_row{"student_ID"} ?>">
-											(依照學校學號格式)
-										</div>
-										<div class="input-field col m6">
-											*行動電話：
-											<input name="cellphone" type="text" size="10" length="10" value="<?php echo $users_row{"cellphone"} ?>">
-										</div>
+									<div class="input-field col m6">
+										*密碼確認：
+										<input name="re_password" type="password" class="validate" size="10" length="10" value="<?php echo $users_row{"password"} ?>">
+										(再輸入一次密碼，並記下您的使用者名稱與密碼)
 									</div>
-									<div class="row">
-										<div class="input-field col m6">
-											*E-mail
-											<input name="email" type="text" size="30" length="30" value="<?php echo $users_row{"email"} ?>">
-										</div>	
-										<div class="input-field col m6">
-											個人網站：
-											<input name="url" type="text" size="40" length="40" value="<?php echo $users_row{"url"} ?>">
-										</div>
+								</div>
+								<div class="input-field col s8">
+									*使用者姓名：
+									<input name="name"  id="name" type="text" class="validate" size="3" length="3" value="<?php echo $users_row{"name"} ?>">
+									(使用非真實姓名管理員將刪除帳號)
+								</div>
+								<br>
+								<div class="row">
+									<p>*生日:民國 年 月 日</p>
+									<div class="input-field">
+										<input class="col m4" name="year" type="text" class="validate" size="2" value="<?php echo $users_row{"year"} ?>"> 
+										<input class="col m4" name="month" type="text" class="validate" name="month" size="2" value="<?php echo $users_row{"month"} ?>">
+										<input class="col m4" name="day" type="text" class="validate" name="day" size="2" value="<?php echo $users_row{"day"} ?>">
 									</div>
-									<div class="input-field col s8">
-										興趣：
-										<input name="interest" type="text" size="10" length="10" value="<?php echo $users_row{"interest"} ?>">
+								</div>
+								<div class="row">
+									<div class="input-field col m6">
+										*學號：
+										<input name="student_ID" type="text" size="8" length="8" value="<?php echo $users_row{"student_ID"} ?>">
+										(依照學校學號格式)
 									</div>
-									<div class="input-field col s8">
-										社團：
-										<input name="club" type="text" size="5" length="5" value="<?php echo $users_row{"club"} ?>">
+									<div class="input-field col m6">
+										*行動電話：
+										<input name="cellphone" type="text" size="10" length="10" value="<?php echo $users_row{"cellphone"} ?>">
 									</div>
-									<div class="input-field col s8">
-										自我介紹：
-										<textarea name="comment" id="textarea1" size="30" length="30" class="materialize-textarea"><?php echo $users_row{"comment"} ?></textarea>
+								</div>
+								<div class="row">
+									<div class="input-field col m6">
+										*E-mail
+										<input name="email" type="text" size="30" length="30" value="<?php echo $users_row{"email"} ?>">
+									</div>	
+									<div class="input-field col m6">
+										個人網站：
+										<input name="url" type="text" size="40" length="40" value="<?php echo $users_row{"url"} ?>">
 									</div>
-							  <br>
-							  <div class="card-action center-align">
+								</div>
+								<div class="input-field col s8">
+									興趣：
+									<input name="interest" type="text" size="10" length="10" value="<?php echo $users_row{"interest"} ?>">
+								</div>
+								<div class="input-field col s8">
+									社團：
+									<input name="club" type="text" size="5" length="5" value="<?php echo $users_row{"club"} ?>">
+								</div>
+								<div class="input-field col s8">
+									自我介紹：
+									<textarea name="comment" id="textarea1" size="30" length="30" class="materialize-textarea"><?php echo $users_row{"comment"} ?></textarea>
+								</div>
+							<br>
+							<div class="card-action center-align">
 								<a class="waves-effect waves-light btn brown" onClick="check_data()">確定</a>
 								<a class="waves-effect waves-light btn brown" onClick="reset()">重新輸入</a>
 								<br>
 								<br>
-								<a href="http://localhost/NHUSH-CITY/main.php">回首頁</a>
-							  </div>
-							</form>
-						</div>
+								<a href="main.php">回首頁</a>
+							</div>
+						</form>
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
 		</div>
 	</div>
 	
@@ -218,9 +201,6 @@
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v6.0"></script>
 <script src="js/init.js"></script>
 <script type="text/javascript">
 	
@@ -313,7 +293,7 @@
 		  alert("「個人簡介」不可以超過30個字元哦...");
 		  return false;
 		}	
-        myForm.submit();					
+			myForm.submit();					
       }
 	  
 	  function reset(){

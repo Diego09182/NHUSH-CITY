@@ -25,16 +25,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>NHUSH-CITY</title>
-  <!-- CSS  -->
- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
- <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
- <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+	<title>NHUSH-CITY</title>
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
 </head>
 <body>
 <div id="app">	
@@ -47,6 +46,12 @@
 		<ul class="right hide-on-med-and-down">
 		  	<li><a class="waves-effect" href="modify.php">修改資料</a></li>
 			<li><a class="waves-effect" href="myhome.php">我的小屋</a></li>
+			<?php
+				if ($id == 45)
+				{
+					echo"<li><a class='waves-effect' href='review.php'>審查文章</a></li>";
+				}
+			?>	
 		</ul>
 	  <ul id="slide-out" class="side-nav">
 	    <li>
@@ -86,58 +91,42 @@
     </div>
   </nav>
   
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <br><br>
-		<h1 class="center header-text animate__animated animate__fadeIn" id="index-title1" >南湖高中</h1>
-		<div class="row center">
-			<h5 class="header col s12 light animate__animated animate__fadeIn" id="index-title2">An exclusive community for Nanhu High School</h5>
-		</div>
-      <br><br>
-    </div>
-  </div>
+	<banner></banner>
 	
-	<br>
-	<br>
+	<br><br>
 
-  <div class="container">
+	<div class="container">
 	  
-	  <div class="fixed-action-btn horizontal click-to-toggle">
-	      <a class="btn-floating btn-large brown">
-	  		<i class="material-icons">menu</i>
-	      </a>
-	      <ul>
-	  		<li><a href="modify.php" class="btn-floating btn waves-effect waves-light green"><i class="tooltipped" data-position="top" data-tooltip="修改資料"><i class="material-icons">perm_identity</i></i></a></li>
-	  		<li><a href="myhome.php" class="btn-floating btn waves-effect waves-light blue"><i class="tooltipped" data-position="top" data-tooltip="我的小屋"><i class="material-icons">view_quilt</i></i></a></li>
-	  	</ul>
-	  </div>
-	
-    <div class="section">
-		
-      <div class="row">
-	<div>	
-		
+	<div class="fixed-action-btn horizontal click-to-toggle">
+	    <a class="btn-floating btn-large brown">
+			<i class="material-icons">menu</i>
+	    </a>
+	    <ul>
+			<li><a href="modify.php" class="btn-floating btn waves-effect waves-light green"><i class="tooltipped" data-position="top" data-tooltip="修改資料"><i class="material-icons">perm_identity</i></i></a></li>
+			<li><a href="myhome.php" class="btn-floating btn waves-effect waves-light blue"><i class="tooltipped" data-position="top" data-tooltip="我的小屋"><i class="material-icons">view_quilt</i></i></a></li>
+		</ul>
+	</div>
+	  
+    <div class="row">	
 		<h3 class="center-align">校務投票</h3>
-		<br>
-		
+		<br>	
 		<div class="col s12 m3">
 			<div class="card hoverable">
-					<div class="card-image">
-					  <img src="images/NanhuSchool.png">
-					</div>
+				<div class="card-image">
+					<img src="images/NanhuSchool.png">
+				</div>
+				<br>
+				<div class="chip chip-two">
+					學生自治
+				</div>	
+				<div class="card-content">
+					<h5>班聯會主席</h5>
+					<p class="truncate">請盡快投票</p>
+					<a href="election.php" class="waves-effect waves-light btn right brown">查看</a>
 					<br>
-					<div class="chip chip-two">
-						學生自治
-					</div>	
-					<div class="card-content">
-						<h5>班聯會主席</h5>
-						<p class="truncate">請盡快投票</p>
-						<a href="election.php" class="waves-effect waves-light btn right brown">查看</a>
-						<br>
-					</div>
+				</div>
 			</div>
-		</div>
-		  
+		</div> 
 		<div class="col s12 m3">
 			<div class="card hoverable">
 					<div class="card-image">
@@ -154,145 +143,104 @@
 						<br>
 					</div>
 			</div>
-		</div>
-		
+		</div>	
 		<div class="col s12 m3">
 			<div class="card hoverable">
-					<div class="card-image">
-					  <img src="images/NanhuSchool.png">
-					</div>
+				<div class="card-image">
+				  <img src="images/NanhuSchool.png">
+				</div>
+				<br>
+				<div class="chip chip-two">
+					校務投票
+				</div>	
+				<div class="card-content">
+					<h5>畢業旅行地點</h5>
+					<p class="truncate">還沒開放</p>
+					<a class="waves-effect waves-light btn right brown">查看</a>
 					<br>
-					<div class="chip chip-two">
-						校務投票
-					</div>	
-					<div class="card-content">
-						<h5>畢業旅行地點</h5>
-						<p class="truncate">還沒開放</p>
-						<a class="waves-effect waves-light btn right brown">查看</a>
-						<br>
-					</div>
-			</div>
-		</div>
-
-		<div class="col s12 m3">
-		  <div class="collection center-align">
-			<a  class="collection-item"><h4>文章分類</h4></a>
-			<a  class="collection-item">學生自治</a>
-			<a  class="collection-item">校務投票</a>
-		  </div>
-		</div>
-		
-	</div>
-	</div>
-		</div>
-
-			<br>
-			<br>
-			
-	
 				</div>
 			</div>
 		</div>
-	
-	<div class="row">
-		<section id="facility" class="tm-section-pad-top">
-		  <div class="container tm-container-gallery">
-			<div class="row">
-			  <div class="center-align col-12">
-				<br>
-				<h2 class="tm-text-primary tm-section-title mb-4">NHUSH CITY</h2>
-				<p class="mx-auto tm-work-description">
-					你能想像一個專屬於我們的社區嗎? 你可以在這裡分享你關於學校與學習相關的任何問題，達成共同學習法的作用。
-				<br>
-				<br>
-				我們會不斷精進此系統，請提供任何意見給開發團隊。
-				</p>
-				<br>			
-				<br>
-			  </div>            
-			</div>	
-		</section>
+		<div class="col s12 m3">
+			<div class="collection center-align">
+				<a class="collection-item black-text"><h4>文章分類</h4></a>
+				<a class="collection-item black-text">學生自治</a>
+				<a class="collection-item black-text">校務投票</a>
+			</div>
+		</div>
 	</div>
-		
-		
-	<br>
-	<br>
 	
- <div class="container">	
-	<section id="plan" class="tm-section-pad-top">
-	      <div class="container">
-	        <div class="center-align">
+	<br><br>
+	
+	<slogan></slogan>
+		
+	<br><br>
+	
+	<?php
+	
+		//執行SQL查詢
+		$sql = "SELECT id,billboard,date FROM bulletin_board ORDER BY date DESC";
+		$result = execute_sql($link, "news", $sql);
+		$row = mysqli_fetch_assoc($result);
+		
+	?>
+	
+	<div class="container">
+		<div class="container">
+			<div class="center-align">
 				<h3 class="tm-text-primary tm-section-title mb-4">公佈欄</h3>
-	        </div>
-	          <div class="col s6 m6">
-	            <div class="card horizontal small">
-	              <div class="card-stacked">
-	                <div class="card-content">
-						<h4>
-							<blockquote>
-								切換頁面時，如果有顯示的BUG，請重新整理。
-							</blockquote>
-						</h4>
-	                </div>
-	              </div>
-	            </div>
-	          </div>
-	</section>
-</div>
+			</div>
+			<div class="col s6 m6">
+				<div class="card horizontal small">
+					<div class="card-stacked">
+						<div class="card-content">
+							<h4>
+								<blockquote>
+									<?php  echo $row["billboard"]  ?>
+								</blockquote>
+							</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<br><br>
 
-<div class="container">
-		<section id="plan" class="tm-section-pad-top">
-		      <div class="container">
-		        <div class="center-align">
-					<h3 class="tm-text-primary tm-section-title mb-4">CONTACT</h3>
-		        </div>		
-		          <div class="col s6 m6">
-		            <div class="card horizontal small">
-		              <div class="card-stacked">
-		                <div class="card-content">
-							<blockquote>
-							<h4><i class="material-icons medium">perm_phone_msg</i>02-26308889</p>
-							<p><i class="material-icons medium">contacts</i>臺北市內湖區康寧路3段220號</p>
-							</blockquote>
-						</div>
-		              </div>
-		            </div>
-		          </div>
-		</section>
+	<contact></contact>
+
 </div>
 
-  <footer class="page-footer brown">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">南湖資訊社</h5>
-          <p class="grey-text text-lighten-4">We are students of Nanhu High School and we love Computer Science and Information Engineering.</p>
-		  <p class="grey-text text-lighten-4">This website is completed by our students and teachers.</p>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">相關連結</h5>
-          <ul>
-            <li><a class="white-text" href="http://www.nhush.tp.edu.tw/default_page.asp">南湖高中官網</a></li>
-            <li><a class="white-text" href="https://e-portfolio.cooc.tp.edu.tw/Portal.do">臺北市學習歷程檔案系統</a></li>
-            <li><a class="white-text" href="https://sschool.tp.edu.tw/Login.action?schNo=403303">台北市高中第二代校務行政系統</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-			<p class="center-align">Made by <a class="orange-text text-lighten-3" href="http://www.materializecss.cn">Materialize</a></p>
-      </div>
-    </div>
-  </footer>
-
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
-
-  </body>
+	<footers></footers>
+	
+</div>
+<!--  Scripts-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/materialize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script src="js/init.js"></script>
+<script type="text/javascript">
+		
+	$(document).ready(function(){
+		$('.parallax').parallax();
+		$('.button-collapse').sideNav();
+		$('.carousel.carousel-slider').carousel({full_width: true});
+		$('.modal').modal();
+		$('.materialboxed').materialbox();
+		$('.tooltipped').tooltip({delay: 50});
+		$('.chips').material_chip();
+		$('.collapsible').collapsible();
+		$('.carousel').carousel();
+		$('.slider').slider({full_width: true});
+		$('select').material_select();
+		$(".button-collapse").sideNav();
+	});
+	
+</script>
+</body>
 </html>

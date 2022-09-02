@@ -4,6 +4,38 @@
 	
 	$collector = $_COOKIE{"id"};
 	$post = $_COOKIE{"news_id"};
+	
+	function test_input($data) {
+	  
+		$data = trim($data);
+		$data = htmlspecialchars($data);
+		return $data;
+		
+	}
+	
+	function error() {
+	  
+		header("location:index.html");
+		exit();
+		
+	}
+	
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		  
+		if (empty($_COOKIE{"id"})) {
+			error();
+		} else {
+			$collector = test_input($collector);
+		}
+		 
+		if (empty($_COOKIE{"news_id"})) {
+			error();
+		} else {
+			$post = test_input($post);
+		}
+		
+	}
+	
 	$current_time = date("Y-m-d H:i:s");
 	
 	//建立資料連接

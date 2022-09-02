@@ -24,11 +24,17 @@
 ?>
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>線上投票</title>
-    <meta charset="utf-8">		
-  </head>
-  <style>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>NHUSH-CITY</title>
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
+</head>
+<style>
   
   	#card
   	{
@@ -38,7 +44,8 @@
   		border-radius:25px;
   	}
   	
-	#button {
+	#button 
+	{
 	  display: inline-block;
 	  padding: 15px 25px;
 	  font-size: 24px;
@@ -52,13 +59,15 @@
 	
 	#button:hover {background-color: #3e8e41}
 	
-	#button:active {
+	#button:active 
+	{
 		background-color: #3e8e41;
 		box-shadow: 0 5px #666;
 		transform: translateY(4px);
 	}
 	
-	#radio{
+	#radio
+	{
 		width:20px;height:20px
 	}
 	
@@ -71,10 +80,7 @@
 				<td align="center"><b><font><h2>候選人</h2></font></b></td>
 				<td align="center"><b><font><h2>候選人介紹</h2></font></b></td>
 			</tr>
-			<?php
-				require_once("dbtools.inc.php");
-							
-				$link = create_connection();
+			<?php								
 															
 				//執行 Select 陳述式選取候選人資料
 				$sql = "SELECT * FROM candidate";
@@ -104,13 +110,13 @@
 		<?php
 			if ($id == 45){
 				echo"<input id='button' type='button' value='推薦候選人' onclick='javascript:window.open('recommendation.php','_self')'>";
-			}		
+			}
 		?>
 		<input id="button" type="button" value="觀看投票結果" onclick="javascript:window.open('result.php','_self')">
       </p>
     </form>
-  </body>
-  <script type="text/javascript">
+</body>
+<script type="text/javascript">
     function check_data()
     {		
   
@@ -129,9 +135,9 @@
       {
         alert("您沒有選擇候選人");
         return false;				
-      }				
-  			
+      }
+  	
       myForm.submit();
     }
-  </script>
+</script>
 </html>

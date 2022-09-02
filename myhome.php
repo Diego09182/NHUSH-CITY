@@ -1,20 +1,14 @@
 <?php
 	
-	//檢查 cookie 中的 passed 變數是否等於 TRUE
-	$passed = $_COOKIE{"passed"};
-	$id = $_COOKIE{"id"};
+	//登入狀態驗證
+	session_start();
+	if (empty($_SESSION["user"]))
+	{
+	  header("location:index.html");
+	  exit();
+	}
 	
-	//表示尚未登入網站，將使用者導向首頁 index.html
-	if ($_COOKIE{"passed"} != "TRUE")
-	{
-		header("location:index.html");
-		exit();
-	}
-	if ($_COOKIE{"id"} == "")
-	{
-		header("location:index.html");
-		exit();
-	}
+	$id = $_SESSION["user"];
 	
 	require_once("dbtools.inc.php");
 	
@@ -30,77 +24,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>NHUSH-CITY</title>
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-  <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+	<title>NHUSH-CITY</title>
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
 </head>
 <body>
 <div id="app">
-  <nav class="light lighten-1 brown" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="main.php" class="brand-logo center">NHUSH-CITY</a>
-		<ul class="left hide-on-med-and-down">
-			<li><a class="waves-effect">名稱:<?php echo $users_row{"account"} ?></a></li>
-			<li><a class="waves-effect">姓名:<?php echo $users_row{"name"} ?></a></li>
-		  </ul>
-		  <ul class="right hide-on-med-and-down">
-			<li><a class="waves-effect" href="modify.php">修改資料</a></li>
-			<li><a class="waves-effect" href="myhome_collect.php">收藏庫</a></li>
-			<?php
-				if ($id == 45)
-				{
-					echo"<li><a class='waves-effect' href='review.php'>審查文章</a></li>";
-				}
-			?>
-		</ul>
-		<ul id="slide-out" class="side-nav">
-			<li>
-				<div class="userView">
-					<div class="background">
-						<img src="images/head.jpg">
-					</div>
-					<?php
-						echo"<a>";
-							echo"<img class='circle' src='$user_avatar'>";
-						echo"</a>";
-					?>
-					<a><span class="name">十三</span></a>
-				</div>
-			</li>
-			<blockquote>
-			<li><a class="waves-effect"><i class="material-icons">info_outline</i>帳戶資訊</a></li>
-			<li><a class="waves-effect">名稱:<?php echo $users_row{"account"} ?></a></li>
-			<li><a class="waves-effect">姓名:<?php echo $users_row{"name"} ?></a></li>
-			<li><a class="waves-effect">學號:<?php echo $users_row{"student_ID"} ?></a></li>
-			<li><a class="waves-effect">行動電話:<?php echo $users_row{"cellphone"} ?></a></li>
-			<li><a href="myhome.php">我的小屋</a></li>
-			<li><a href="modify.php">修改資料</a></li>
-			<li><a class="waves-effect"><i class="material-icons">info_outline</i>聯絡資訊</a></li>
-			<li><a class="waves-effect">ssss.gladmasy@gmail.com</a></li>
-			<li class="no-padding">
-				<ul class="collapsible collapsible-accordion">
-					<li>
-						<a class="collapsible-header">開發者資訊<i class="material-icons">arrow_drop_down</i></a>
-						<div class="collapsible-body">
-							<ul>
-							  <li><a href="#">ssss</a></li>
-							  <li><a href="https://github.com/Diego09182"><img src="images/GitHub.png"></a></li>
-							</ul>
+
+	<nav class="light lighten-1 brown" role="navigation">
+		<div class="nav-wrapper container"><a id="logo-container" href="main.php" class="brand-logo center">NHUSH-CITY</a>
+			<ul class="left hide-on-med-and-down">
+				<li><a class="waves-effect">名稱:<?php echo $users_row{"account"} ?></a></li>
+				<li><a class="waves-effect">姓名:<?php echo $users_row{"name"} ?></a></li>
+			  </ul>
+			  <ul class="right hide-on-med-and-down">
+				<li><a class="waves-effect" href="modify.php">修改資料</a></li>
+				<li><a class="waves-effect" href="myhome_collect.php">收藏庫</a></li>
+				<?php
+					if ($id == 45)
+					{
+						echo"<li><a class='waves-effect' href='review.php'>審查文章</a></li>";
+					}
+				?>
+			</ul>
+			<ul id="slide-out" class="side-nav">
+				<li>
+					<div class="userView">
+						<div class="background">
+							<img src="images/head.jpg">
 						</div>
-					</li>
-				</ul>
-			</li>
-			</blockquote>
-		</ul>
-		<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
+						<?php
+							echo"<a>";
+								echo"<img class='circle' src='$user_avatar'>";
+							echo"</a>";
+						?>
+						<a><span class="name">十三</span></a>
+					</div>
+				</li>
+				<blockquote>
+				<li><a class="waves-effect"><i class="material-icons">info_outline</i>帳戶資訊</a></li>
+				<li><a class="waves-effect">名稱:<?php echo $users_row{"account"} ?></a></li>
+				<li><a class="waves-effect">姓名:<?php echo $users_row{"name"} ?></a></li>
+				<li><a class="waves-effect">學號:<?php echo $users_row{"student_ID"} ?></a></li>
+				<li><a class="waves-effect">行動電話:<?php echo $users_row{"cellphone"} ?></a></li>
+				<li><a href="myhome.php">我的小屋</a></li>
+				<li><a href="modify.php">修改資料</a></li>
+				<li><a class="waves-effect"><i class="material-icons">info_outline</i>聯絡資訊</a></li>
+				<li><a class="waves-effect">ssss.gladmasy@gmail.com</a></li>
+				<li class="no-padding">
+					<ul class="collapsible collapsible-accordion">
+						<li>
+							<a class="collapsible-header">開發者資訊<i class="material-icons">arrow_drop_down</i></a>
+							<div class="collapsible-body">
+								<ul>
+								  <li><a href="#">ssss</a></li>
+								  <li><a href="https://github.com/Diego09182"><img src="images/GitHub.png"></a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</li>
+				</blockquote>
+			</ul>
+			<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+		</div>
+	</nav>
 
 	<banner></banner>
 	
@@ -214,10 +208,10 @@
 							mysqli_data_seek($result, $started_record);
 							 
 							//顯示日記
-							  $j = 1;
-							  while ($row = mysqli_fetch_assoc($result) and $j <= $records_per_page)
-							  {
-								
+							$j = 1;
+							while ($row = mysqli_fetch_assoc($result) and $j <= $records_per_page)
+							{
+								//日記元件
 								echo"<ul class='collection'>";
 									echo"<li class='collection-item avatar' class='col s12 m12'>";
 											echo"<i class='material-icons circle'>folder</i>";
@@ -242,24 +236,22 @@
 								echo"</ul>";
 							
 								$j++;
-							  }
+							}
 							
 							//產生導覽列
 							echo"<ul class='pagination center'>";
 								if ($page > 1)
-									echo "<li class='waves-effect'><a href='myhome.php?page=". ($page - 1) . "'><i class='material-icons'>chevron_left</i></a></li>";
-											
+									echo "<li class='waves-effect'><a href='myhome.php?page=". ($page - 1) . "'><i class='material-icons'>chevron_left</i></a></li>";										
 								for ($i = 1; $i <= $total_pages; $i++)
 								{
 									if ($i == $page)
 										echo "<li class='waves-effect'><a href='myhome.php?page=$i'>$i</a></li>";
 									else
 										echo"<li class='waves-effect'><a href='myhome.php?page=$i'>$i</a></li>";
-								}
-										
+								}								
 								if ($page < $total_pages)
 									echo"<li class='waves-effect'><a href='myhome.php?page=". ($page + 1) . "'><i class='material-icons'>chevron_right</i></a></li>";
-								  echo "</p>";  
+									echo "</p>";  
 							echo"</ul>"; 
 							
 							//執行SQL查詢
@@ -344,7 +336,7 @@
 						<div class="card-content">
 							<h4>
 								<blockquote>
-									<?php  echo $row["billboard"]  ?>
+									<?php echo $row["billboard"] ?>
 								</blockquote>
 							</h4>
 						</div>
@@ -370,9 +362,6 @@
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v6.0"></script>
 <script src="js/init.js"></script>
 <script type="text/javascript">
 			

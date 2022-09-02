@@ -1,20 +1,14 @@
 <?php
 	
-	//檢查 cookie 中的 passed 變數是否等於 TRUE
-	$passed = $_COOKIE{"passed"};
-	$id = $_COOKIE{"id"};
+	//登入狀態驗證
+	session_start();
+	if (empty($_SESSION["user"]))
+	{
+	  header("location:index.html");
+	  exit();
+	}
 	
-	//表示尚未登入網站，將使用者導向首頁 index.html
-	if ($_COOKIE{"passed"} != "TRUE")
-	{
-		header("location:index.html");
-		exit();
-	}
-	if ($_COOKIE{"id"} == "")
-	{
-		header("location:index.html");
-		exit();
-	}
+	$id = $_SESSION["user"];
 	
 	require_once("dbtools.inc.php");
 	
@@ -30,77 +24,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>NHUSH-CITY</title>
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-  <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+	<title>NHUSH-CITY</title>
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
 </head>
 <body>
-<div id="app">	
-  <nav class="light lighten-1 brown" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="main.php" class="brand-logo center">NHUSH-CITY</a>
-		<ul class="left hide-on-med-and-down">
-			<li><a class="waves-effect">名稱:<?php echo $users_row{"account"} ?></a></li>
-			<li><a class="waves-effect">姓名:<?php echo $users_row{"name"} ?></a></li>
-		  </ul>
-		  <ul class="right hide-on-med-and-down">
-			<li><a class="waves-effect" href="modify.php">修改資料</a></li>
-			<li><a class="waves-effect" href="myhome.php">我的小屋</a></li>
-			<?php
-				if ($id == 45)
-				{
-					echo"<li><a class='waves-effect' href='review.php'>審查文章</a></li>";
-				}
-			?>
-		</ul>
-		<ul id="slide-out" class="side-nav">
-			<li>
-				<div class="userView">
-					<div class="background">
-						<img src="images/head.jpg">
-					</div>
-					<?php
-						echo"<a>";
-							echo"<img class='circle' src='$user_avatar'>";
-						echo"</a>";
-					?>
-					<a><span class="name">十三</span></a>
-				</div>
-			</li>
-			<blockquote>
-			<li><a class="waves-effect"><i class="material-icons">info_outline</i>帳戶資訊</a></li>
-			<li><a class="waves-effect">名稱:<?php echo $users_row{"account"} ?></a></li>
-			<li><a class="waves-effect">姓名:<?php echo $users_row{"name"} ?></a></li>
-			<li><a class="waves-effect">學號:<?php echo $users_row{"student_ID"} ?></a></li>
-			<li><a class="waves-effect">行動電話:<?php echo $users_row{"cellphone"} ?></a></li>
-			<li><a href="myhome.php">我的小屋</a></li>
-			<li><a href="modify.php">修改資料</a></li>
-			<li><a class="waves-effect"><i class="material-icons">info_outline</i>聯絡資訊</a></li>
-			<li><a class="waves-effect">ssss.gladmasy@gmail.com</a></li>
-			<li class="no-padding">
-				<ul class="collapsible collapsible-accordion">
-					<li>
-						<a class="collapsible-header">開發者資訊<i class="material-icons">arrow_drop_down</i></a>
-						<div class="collapsible-body">
-							<ul>
-							  <li><a href="#">ssss</a></li>
-							  <li><a href="https://github.com/Diego09182"><img src="images/GitHub.png"></a></li>
-							</ul>
+<div id="app">
+
+	<nav class="light lighten-1 brown" role="navigation">
+		<div class="nav-wrapper container"><a id="logo-container" href="main.php" class="brand-logo center">NHUSH-CITY</a>
+			<ul class="left hide-on-med-and-down">
+				<li><a class="waves-effect">名稱:<?php echo $users_row{"account"} ?></a></li>
+				<li><a class="waves-effect">姓名:<?php echo $users_row{"name"} ?></a></li>
+			  </ul>
+			  <ul class="right hide-on-med-and-down">
+				<li><a class="waves-effect" href="modify.php">修改資料</a></li>
+				<li><a class="waves-effect" href="myhome.php">我的小屋</a></li>
+				<?php
+					if ($id == 45)
+					{
+						echo"<li><a class='waves-effect' href='review.php'>審查文章</a></li>";
+					}
+				?>
+			</ul>
+			<ul id="slide-out" class="side-nav">
+				<li>
+					<div class="userView">
+						<div class="background">
+							<img src="images/head.jpg">
 						</div>
-					</li>
-				</ul>
-			</li>
-			</blockquote>
-		</ul>
-		<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
+						<?php
+							echo"<a>";
+								echo"<img class='circle' src='$user_avatar'>";
+							echo"</a>";
+						?>
+						<a><span class="name">十三</span></a>
+					</div>
+				</li>
+				<blockquote>
+				<li><a class="waves-effect"><i class="material-icons">info_outline</i>帳戶資訊</a></li>
+				<li><a class="waves-effect">名稱:<?php echo $users_row{"account"} ?></a></li>
+				<li><a class="waves-effect">姓名:<?php echo $users_row{"name"} ?></a></li>
+				<li><a class="waves-effect">學號:<?php echo $users_row{"student_ID"} ?></a></li>
+				<li><a class="waves-effect">行動電話:<?php echo $users_row{"cellphone"} ?></a></li>
+				<li><a href="myhome.php">我的小屋</a></li>
+				<li><a href="modify.php">修改資料</a></li>
+				<li><a class="waves-effect"><i class="material-icons">info_outline</i>聯絡資訊</a></li>
+				<li><a class="waves-effect">ssss.gladmasy@gmail.com</a></li>
+				<li class="no-padding">
+					<ul class="collapsible collapsible-accordion">
+						<li>
+							<a class="collapsible-header">開發者資訊<i class="material-icons">arrow_drop_down</i></a>
+							<div class="collapsible-body">
+								<ul>
+								  <li><a href="#">ssss</a></li>
+								  <li><a href="https://github.com/Diego09182"><img src="images/GitHub.png"></a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</li>
+				</blockquote>
+			</ul>
+			<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+		</div>
+	</nav>
 
 	<banner></banner>
 	
@@ -119,7 +113,7 @@
 		<div class="modal-content">
 			<div class="col s12 m12">
 				<div class="card blue-grey darken-1 card">
-					  <div class="card-content white-text">
+					<div class="card-content white-text">
 						<form name="myForm" method="post" action="post_note.php">
 							<input type="hidden" name="author" value="<?php echo $users_row{"account"} ?>">
 							<input type="hidden" name="owner" value="<?php echo $id ?>">
@@ -136,13 +130,13 @@
 									<label for="last_name">日記內容</label>
 								</div>
 							</div>
-						  <br>
-						  <div class="card-action center-align">
-							<a class="waves-effect waves-light btn" onClick="check_data()">發送</a>
-							<a class="waves-effect waves-light btn" onClick="reset()">重新輸入</a>
 							<br>
-							<a href="main.php">回首頁</a>
-						  </div>
+							<div class="card-action center-align">
+								<a class="waves-effect waves-light btn" onClick="check_data()">發送</a>
+								<a class="waves-effect waves-light btn" onClick="reset()">重新輸入</a>
+								<br>
+								<a href="main.php">回首頁</a>
+							</div>
 						</form>
 					</div>
 				</div>
@@ -179,7 +173,6 @@
 			</div>
 		</div>
 	</div>
-	
 	<br>
 	<div class="container">
 		<div class="row">
@@ -218,6 +211,7 @@
 							$j = 1;
 							while ($row = mysqli_fetch_assoc($result) and $j <= $records_per_page)
 							{
+								
 								echo"<ul class='collection'>";
 									echo"<li class='collection-item avatar' class='col s12 m12'>";
 											echo"<i class='material-icons circle'>folder</i>";
@@ -369,10 +363,7 @@
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v6.0"></script>
-<script src="js/init.js"></script>  
+<script src="js/init.js"></script>
 <script type="text/javascript">
 			
 			function check_data()

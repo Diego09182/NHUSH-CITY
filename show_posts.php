@@ -1,9 +1,5 @@
 <?php
 	
-	//取得要顯示之記錄
-	$news_id = $_GET["id"];
-	setcookie("news_id", $news_id);
-	
 	//登入狀態驗證
 	session_start();
 	if (empty($_SESSION["user"]))
@@ -13,6 +9,10 @@
 	}
 	
 	$member_id = $_SESSION["user"];
+	
+	//取得要顯示之記錄
+	$news_id = $_GET["id"];
+	setcookie("news_id", $news_id);
 		
 	require_once("dbtools.inc.php");
 			
@@ -29,21 +29,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>NHUSH-CITY</title>
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-  <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+	<title>NHUSH-CITY</title>
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
 </head>
 <style type="text/css">
   
   body{
-  	font-family: 'Noto Sans TC', sans-serif;
+  	font-family:'Noto Sans TC', sans-serif;
   }
   .fontSIZE:link,
   .fontSIZE:visited{
@@ -62,7 +61,8 @@
   }
   
 </style>
-<body> 	  	 
+<body>
+<div id="app">
 	<nav class="light lighten-1 brown" role="navigation">
 		<div class="nav-wrapper container"><a id="logo-container" href="forum.php" class="brand-logo center">NHUSH-CITY</a>
 		  <ul class="left hide-on-med-and-down">
@@ -122,16 +122,7 @@
 		</div>
 	</nav>
 	
-	<div class="section no-pad-bot" id="index-banner">
-	  <div class="container">
-	    <br><br>
-			<h1 class="center header-text animate__animated animate__fadeIn" id="index-title1" >南湖高中</h1>
-	    <div class="row center">
-			<h5 class="header col s12 light animate__animated animate__fadeIn" id="index-title2">An exclusive community for Nanhu High School</h5>
-	    </div>
-	    <br><br>
-	  </div>
-	</div>
+	<banner></banner>
 	
 	<div class="fixed-action-btn horizontal click-to-toggle">
 	    <a class="btn-floating btn-large brown">
@@ -144,7 +135,7 @@
 		</ul>
 	</div>
 	
-	<div class="container center" id="app">
+	<div class="container center">
 	 
 	<br>
 	
@@ -340,9 +331,9 @@
 						<form name="report" method="post" action="report.php">
 							<div class="input-field col m4 right">
 								<i class="material-icons prefix">perm_identity</i>
-								<input class="validate" name="author" type="text" value="<?php echo $users_row{"account"} ?>" readonly>
+								<input class="validate white-text" name="author" type="text" value="<?php echo $users_row{"account"} ?>" readonly>
 								<input type="hidden" name="reply_id" value="<?php echo $id ?>">
-								<label for="icon_prefix2">帳號</label>
+								<label class="white-text" for="icon_prefix2">帳號</label>
 							</div>
 							<div class="row">
 								<div class="input-field col s12 m12">
@@ -383,8 +374,8 @@
 							<span class="card-title">留言板</span>
 								<div class="input-field col s3 m3 right">
 									<i class="material-icons prefix">perm_identity</i>
-									<input class="validate" name="author" type="text" value="<?php echo $users_row{"account"} ?>" readonly>
-									<label for="icon_prefix2">帳號</label>
+									<input class="validate white-text" name="author" type="text" value="<?php echo $users_row{"account"} ?>" readonly>
+									<label class="white-text" for="icon_prefix2">帳號</label>
 								</div>
 							<div class="row">
 								<div class="input-field col s12 m12">
@@ -415,30 +406,8 @@
 	
 	<br><br>
 	
-	<footer class="page-footer brown">
-		<div class="container">
-		  <div class="row">
-			<div class="col l6 s12">
-			  <h5 class="white-text">南湖資訊社</h5>
-			  <p class="grey-text text-lighten-4">We are students of Nanhu High School and we love Computer Science and Information Engineering.</p>
-			  <p class="grey-text text-lighten-4">This website is completed by our students and teachers.</p>
-			</div>
-			<div class="col l3 s12">
-			  <h5 class="white-text">相關連結</h5>
-			  <ul>
-				<li><a class="white-text" href="http://www.nhush.tp.edu.tw/default_page.asp">南湖高中官網</a></li>
-				<li><a class="white-text" href="https://e-portfolio.cooc.tp.edu.tw/Portal.do">臺北市學習歷程檔案系統</a></li>
-				<li><a class="white-text" href="https://sschool.tp.edu.tw/Login.action?schNo=403303">台北市高中第二代校務行政系統</a></li>
-			  </ul>
-			</div>
-		  </div>
-		</div>
-		<div class="footer-copyright">
-		  <div class="container">
-			<p class="center-align">Made by <a class="orange-text text-lighten-3" href="http://www.materializecss.cn">Materialize</a></p>
-		  </div>
-		</div>
-	</footer>
+	<footers></footers>
+	
 </div>		
 </body>
 <!--  Scripts-->
@@ -446,10 +415,59 @@
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 <script src="js/init.js"></script>
 <script type="text/javascript">
+	
+	Vue.component('banner', {
+	  template:  
+		`<div class="section no-pad-bot" id="index-banner">
+			<div class="container">
+				<br><br>
+					<h1 class="center header-text brown-text" id="title" >{{title}}</h1>
+				<div class="row center">
+					<h5 class="header col s12 brown-text" id="slogan">{{slogan}}</h5>
+				</div>
+				<div class="row center">
+					<a id="signbutton" class="btn-large waves-effect waves-light brown" href="logout.php">登出</a>
+				</div>
+				<br><br>
+			</div>
+		</div>`,
+		data(){
+			return{
+				title:'南湖高中',
+				slogan:'An exclusive community for Nanhu High School'
+			}
+		}
+	})
+	
+	Vue.component('footers', {
+	  template:  
+		`<footer class="page-footer brown">
+			<div class="container">
+			  <div class="row">
+				<div class="col l6 s12">
+				  <h5 class="white-text">南湖資訊社</h5>
+				  <p class="grey-text text-lighten-4">We are students of Nanhu High School and we love Computer Science and Information Engineering.</p>
+				  <p class="grey-text text-lighten-4">This website is completed by our students and teachers.</p>
+				</div>
+				<div class="col l3 s12">
+				  <h5 class="white-text">相關連結</h5>
+				  <ul>
+					<li><a class="white-text" href="http://www.nhush.tp.edu.tw/default_page.asp">南湖高中官網</a></li>
+					<li><a class="white-text" href="https://e-portfolio.cooc.tp.edu.tw/Portal.do">臺北市學習歷程檔案系統</a></li>
+					<li><a class="white-text" href="https://sschool.tp.edu.tw/Login.action?schNo=403303">台北市高中第二代校務行政系統</a></li>
+				  </ul>
+				</div>
+			  </div>
+			</div>
+			<div class="footer-copyright">
+			  <div class="container">
+				<p class="center-align">Made by <a class="orange-text text-lighten-3" href="http://www.materializecss.cn">Materialize</a></p>
+			  </div>
+			</div>
+		</footer>`
+	})
 	
 	new Vue({
 	    el: '#app',
@@ -497,7 +515,7 @@
 			alert("回覆內容不可以超過40個字元");
 			return false;
 		  }				
-	  myForm.submit();
+		myForm.submit();
 	}
 	
 	function check_report()
@@ -522,7 +540,7 @@
 			alert("檢舉附註內容不可以超過40個字元");
 			return false;
 		  }				
-	  report.submit();
+		report.submit();
 	}
 	
 	function reset(){

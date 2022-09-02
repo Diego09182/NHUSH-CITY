@@ -1,19 +1,14 @@
 <?php
 
-	//檢查 cookie 中的 passed 變數是否等於 TRUE 
-	$passed = $_COOKIE{"passed"};
-    $id = $_COOKIE{"id"};
+	//登入狀態驗證
+	session_start();
+	if (empty($_SESSION["user"]))
+	{
+	  header("location:index.html");
+	  exit();
+	}
 	
-	if ($_COOKIE{"passed"} != "TRUE")
-	{
-		header("location:index.html");
-		exit();
-	}
-	if ($_COOKIE{"id"} == "")
-	{
-		header("location:index.html");
-		exit();
-	}
+	$id = $_SESSION["user"];
 	
 	require_once("dbtools.inc.php");
 		
@@ -41,7 +36,7 @@
   <link rel="shortcut icon" href="images/NHUSHFOX.ico" type="image/x-icon" />
 </head>
 <style> 
-
+	
 	#card
 	{
 		border:5px solid #8B4513;
@@ -49,9 +44,9 @@
 		border-radius:25px;
 	}
 	
-	classification
-	{
-		border:5px solid rgb(166, 122, 68);
+	#classification
+	{	
+		border-radius:25px;
 	}
 	
 </style>
@@ -98,21 +93,19 @@
 				<li><a class="" href="review.php">審查文章</a></li>
 				<li><a class="waves-effect"><i class="material-icons">info_outline</i>聯絡資訊</a></li>
 				<li><a class="waves-effect">ssss.gladmasy@gmail.com</a></li>
-					<li class="no-padding">
-					  <ul class="collapsible collapsible-accordion">
+				<li class="no-padding">
+					<ul class="collapsible collapsible-accordion">
 						<li>
-						  <a class="collapsible-header">開發者資訊<i class="material-icons">arrow_drop_down</i></a>
-						  <div class="collapsible-body">
-							<ul>
-							  <li><a href="#">ssss</a></li>
-							  <li><a href="https://github.com/Diego09182"><img src="images/GitHub.png"></a></li>
-							  <li><a href="#">twyaya</a></li>
-							  <li><a href="https://github.com/twyaya"><img src="images/GitHub.png"></a></li>
-							</ul>
-						  </div>
+							<a class="collapsible-header">開發者資訊<i class="material-icons">arrow_drop_down</i></a>
+							<div class="collapsible-body">
+								<ul>
+								<li><a href="#">ssss</a></li>
+								<li><a href="https://github.com/Diego09182"><img src="images/GitHub.png"></a></li>
+								</ul>
+							</div>
 						</li>
-					  </ul>
-					</li>
+					</ul>
+				</li>
 				</blockquote>
 			</ul>
 			<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -140,36 +133,48 @@
 		<div class="modal-content">
 			<div class="card blue-grey darken-1 card">
 				<form name="myForm" method="post" action="post.php" enctype="multipart/form-data">
-						<input type="hidden" name="user_id" value="<?php echo $id ?>">
-						<div class="card-content white-text">
-							<span class="card-title">發表文章</span>
+					<input type="hidden" name="user_id" value="<?php echo $id ?>">
+					<div class="card-content white-text">
+						<span class="card-title">發表文章</span>
+						<div class="row">
 							<div class="input-field col m4 right">
 								<i class="material-icons prefix">perm_identity</i>
-								<input class="validate" name="author" type="text" value="<?php echo $row{"account"} ?>" readonly>
-								<label for="icon_prefix2">帳號</label>
+								<input class="validate white-text" name="author" type="text" value="<?php echo $row{"account"} ?>" readonly>
+								<label class="white-text" for="icon_prefix2">帳號</label>
 							</div>
-							<div class="input-field col s12">
+						</div>
+						<br>
+						<div class="row">
+							<div class="input-field col s8">
 								<i class="material-icons prefix">mode_edit</i>
 								<input class="validate" name="subject" type="text" size="15" length="15">
 								<label for="icon_prefix2">主題</label>
 							</div>
-							<br>
-							<div class="input-field col s12">
-								<div class="input-field col s6">
-									<i class="material-icons prefix">mode_edit</i>
-									<textarea class="materialize-textarea" name="content" size="80" length="80"></textarea>
-									<label for="icon_prefix2">內容</label>
-								</div>
+							<div class="input-field col s4">
+								<select name="tag">
+									<option value="" disabled selected>選擇文章標籤</option>
+									<option value="學科問題">學科問題</option>
+									<option value="社團問題">社團問題</option>
+									<option value="自主學習">自主學習</option>
+									<option value="大學面試">大學面試</option>
+									<option value="活動宣傳">活動宣傳</option>
+									<option value="其他事項">其他事項</option>
+								</select>
+								<label>文章標籤</label>
 							</div>
-							<div class="input-field col s12">
-								<i class="material-icons prefix">mode_edit</i>
-								<input class="validate" name="tag" type="text" size="4" length="4">
-								<label for="icon_prefix2">標籤</label>
-							</div>
-							<br>
-							<a class="waves-effect waves-light btn brown right" onClick="check_data()">確定</a>
-							<a class="waves-effect waves-light btn brown right" onClick="reset()">重新輸入</a>
 						</div>
+						<br>
+						<div class="input-field col s12">
+							<div class="input-field">
+								<i class="material-icons prefix">mode_edit</i>
+								<textarea class="materialize-textarea" name="content" size="80" length="80"></textarea>
+								<label for="icon_prefix2">內容</label>
+							</div>
+						</div>
+						<br>
+						<a class="waves-effect waves-light btn brown right" onClick="check_data()">確定</a>
+						<a class="waves-effect waves-light btn brown right" onClick="reset()">重新輸入</a>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -250,14 +255,14 @@
 			mysqli_data_seek($post_result, $started_record);					
 			
 			echo"<div class='col s12 m3 right'>";
-					echo"<div class='collection center-align' id='classification'>";
-						echo"<a  class='collection-item'><h4>文章分類</h4></a>";
-						echo"<a  class='collection-item'>學科問題</a>";
-						echo"<a  class='collection-item'>社團問題</a>";
-						echo"<a  class='collection-item'>自主學習</a>";
-						echo"<a  class='collection-item'>大學面試</a>";
-						echo"<a  class='collection-item'>活動宣傳</a>";
-					echo"</div>";
+				echo"<div class='collection center-align' id='classification'>";
+					echo"<a  class='collection-item black-text'><h4>文章分類</h4></a>";
+					echo"<a  class='collection-item black-text'>學科問題</a>";
+					echo"<a  class='collection-item black-text'>社團問題</a>";
+					echo"<a  class='collection-item black-text'>自主學習</a>";
+					echo"<a  class='collection-item black-text'>大學面試</a>";
+					echo"<a  class='collection-item black-text'>活動宣傳</a>";
+				echo"</div>";
 			echo"</div>";
 							  
 			//顯示貼文
@@ -299,7 +304,7 @@
 			echo"<ul class='pagination center'>";						
 				if ($page > 1)
 					echo "<li class='waves-effect'><a href='forum.php?page=". ($page - 1) ."'><i class='material-icons'>chevron_left</i></a></li>";
-										
+				
 				for ($i = 1; $i <= $total_pages; $i++)
 				{
 					if ($i == $page)
@@ -307,10 +312,10 @@
 					else
 						echo"<li class='waves-effect'><a href='forum.php?page=$i'>$i</a></li>";
 				}
-									
+				
 				if ($page < $total_pages)
 					echo"<li class='waves-effect'><a href='forum.php?page=". ($page + 1) ."'><i class='material-icons'>chevron_right</i></a></li>";
-				echo "</p>";		
+				echo "</p>";
 			echo"</ul>";
 		?> 		
 	</div>
@@ -365,9 +370,6 @@
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v6.0"></script>
 <script src="js/init.js"></script>
 <script type="text/javascript">
 	
