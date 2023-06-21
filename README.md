@@ -17,3 +17,5 @@
 CSS框架:Materializecss  
 JS框架:Vue.js  
 後端:PHP 7 
+### 資料庫
+資料庫:MariaDB
